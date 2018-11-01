@@ -16,14 +16,11 @@
         <div class="col s12">
             <div class="row">
                 <form id="charForm" onsubmit="getCharacter();return false">
-                    <div class="input-field col s12">
-                        <div class="col s6">
-                            <i class="material-icons prefix">textsms</i>
-                            <input type="text" id="charName" class="autocomplete">
-                            <label for="charName">e.g. Beast</label>
-                        </div>
+                    <div class="input-field col s6">
+                        <label for="charName"></label>
+                        <input type="text" id="charName" class="autocomplete" placeholder="e.g. Beast" required>
                         <button class="btn waves-effect waves-light red" type="submit" name="action">
-                            Submit <i class="material-icons right">play_arrow</i>
+                            Search <i class="material-icons right">search</i>
                         </button>
                     </div>
                 </form>
