@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
 </head>
+
 <body>
-    
-    
-    
-    
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <form id="charForm" onsubmit="getCharacter();return false">
+                    <div class="input-field col s12">
+                        <div class="col s6">
+                            <i class="material-icons prefix">textsms</i>
+                            <input type="text" id="charName" class="autocomplete">
+                            <label for="charName">e.g. Beast</label>
+                        </div>
+                        <button class="btn waves-effect waves-light red" type="submit" name="action">
+                            Submit <i class="material-icons right">play_arrow</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="./assets/js/main.js"></script>
 </body>
+
 </html>
