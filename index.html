@@ -6,28 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Marvel Character Lookup</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Fjalla+One|Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
 </head>
 
 <body>
-    <div class="row">
-        <div class="col s12">
+    <header>
+        <nav class="navbar-fixed">
+            <div class="nav-wrapper red-bg-colour">
+                <div class="brand-logo center">
+                    <img src="./assets/images/marvel_logo_transparent.png" height="64px">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="charID" class="hide"></div>
+        <div class="container">
             <div class="row">
                 <form id="charForm" onsubmit="getCharacter();return false">
-                    <div class="input-field col s6">
+                    <div class="input-field col s10">
                         <label for="charName"></label>
                         <input type="text" id="charName" class="autocomplete" placeholder="e.g. Beast" required>
-                        <button class="btn waves-effect waves-light red" type="submit" name="action">
-                            Search <i class="material-icons right">search</i>
-                        </button>
+                    </div>
+                    <div class="search-button col s1">
+                        <button class="btn waves-effect waves-light red-bg-colour" type="submit" name="action">
+                        <i class="material-icons center">search</i>
+                    </button>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
+            <div class="row">
+                <div id="characterImage" class="col s3"></div>
+                <div id="characterName" class="col s9"></div>
+                <div id="characterDescription" class="col s12"></div>
+            </div>
+            
+            <div class="row">
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header red-bg-colour"><i class="material-icons right">expand_more</i>Comics</div>
+                        <div class="collapsible-body silver-dark-bg-colour"><span>Code placeholder for Comics</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header red-bg-colour"><i class="material-icons right">expand_more</i>Series</div>
+                        <div class="collapsible-body silver-dark-bg-colour"><span>Code placeholder for Series</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header red-bg-colour"><i class="material-icons right">expand_more</i>Events</div>
+                        <div class="collapsible-body silver-dark-bg-colour"><span>Code placeholder for Events</span></div>
+                    </li>
+                </ul>
+            </div>
 
+
+        </div>
+    </main>
+
+    <footer class="footer-copyright red-bg-colour center">
+        <a class="fjalla-link" href="http://marvel.com" target="_blank">Data provided by Marvel. © 2018 MARVEL</a>
+    </footer>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
