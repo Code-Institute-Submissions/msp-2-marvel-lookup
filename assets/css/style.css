@@ -2,22 +2,27 @@
 
 .red-bg-colour {
     background-color: #D30026 !important;
+    color: #FFFFFF;
 }
 
 .burgundy-bg-colour {
     background-color: #9D152C !important;
+    color: #FFFFFF;
 }
 
 .silver-light-bg-colour {
     background-color: #C5CFD1 !important;
+    color: #FFFFFF;
 }
 
 .silver-dark-bg-colour {
     background-color: #868A93 !important;
+    color: #FFFFFF;
 }
 
 .grey-bg-colour {
     background-color: #5E6674 !important;
+    color: #FFFFFF;
 }
 
 .red-txt-colour {
@@ -40,4 +45,77 @@
     color: #5E6674;
 }
 
-/*End*/
+/* General Page*/
+
+body {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    top: 0;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    bottom: 0;
+    color: #FFFFFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Navigation */
+
+.navbar-fixed {
+    height: 64px;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+/* Main */
+
+.width-offset-10 {
+    margin: 0 10%;
+}
+
+.row .remove-padding {
+    padding: 0;
+}
+
+.input-field .prefix.active {
+  color: #D30026;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #D30026;
+  /*box-shadow: 0 1px 0 0 #D30026;*/
+}
+
+.search-button {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+
+.fjalla-link {
+    font-family: 'Fjalla One', sans-serif;
+    font-weight: 600;
+    color: #FFFFFF;
+}
