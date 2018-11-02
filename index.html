@@ -24,8 +24,8 @@
 
     <main>
         <div id="charID" class="hide"></div>
-        <div class="container">
-            <div class="row">
+        <div class="container-fluid search-container-css">
+            <div class="row width-offset-10">
                 <form id="charForm" onsubmit="getCharacter();return false">
                     <div class="input-field col s10">
                         <label for="charName"></label>
@@ -38,31 +38,35 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="container-fluid bg-main">
             <div class="row">
-                <div id="characterImage" class="col s3"></div>
-                <div id="characterName" class="col s9"></div>
+                <div id="characterImage" class="remove-padding col s5 m4 l3"></div>
+                <div id="characterName" class="remove-padding center col s7 m8 l9"></div>
+            </div>
+            <div class="row">
                 <div id="characterDescription" class="col s12"></div>
             </div>
-            
-            <div class="row">
+            <div class="row hide">
                 <ul class="collapsible">
                     <li>
-                        <div class="collapsible-header red-bg-colour"><i class="material-icons right">expand_more</i>Comics</div>
-                        <div class="collapsible-body silver-dark-bg-colour"><span>Code placeholder for Comics</span></div>
+                        <div class="collapsible-header red-bg-colour">Comics</div>
+                        <div id="comicsList" class="collapsible-body silver-dark-bg-colour"><span>placeholder for Comics</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header red-bg-colour"><i class="material-icons right">expand_more</i>Series</div>
-                        <div class="collapsible-body silver-dark-bg-colour"><span>Code placeholder for Series</span></div>
+                        <div class="collapsible-header red-bg-colour">Series</div>
+                        <div id="seriesList" class="collapsible-body silver-dark-bg-colour"><span>placeholder for Series</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header red-bg-colour"><i class="material-icons right">expand_more</i>Events</div>
-                        <div class="collapsible-body silver-dark-bg-colour"><span>Code placeholder for Events</span></div>
+                        <div class="collapsible-header red-bg-colour">Events</div>
+                        <div id="eventsList" class="collapsible-body silver-dark-bg-colour"><span>placeholder for Events</span></div>
                     </li>
                 </ul>
             </div>
-
-
         </div>
+
+
+        <!--</div>-->
     </main>
 
     <footer class="footer-copyright red-bg-colour center">
