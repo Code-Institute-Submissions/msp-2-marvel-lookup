@@ -3,12 +3,12 @@ var charName;
 $(document).ready(function() {
     $.getScript('/assets/js/characters.js') // populate autocomplete with script in file characters.js
     $('.collapsible').collapsible();
-    $('#charName').change(function() {
-        var parentForm = $(this).closest("form");
-        if (parentForm)
-            parentForm.submit();
-    });
-})
+    // $('#charName').change(function() { 
+    //     var parentForm = $(this).closest("form");
+    //     if (parentForm)
+    //         parentForm.submit(getCharacter());
+});
+
 
 function getCharacter() {
     charName = document.getElementById('charName').value;
@@ -27,8 +27,10 @@ function getCharacter() {
                                     <div class="hide-on-large-only hide-on-small-only"><img src="${imgSSLfront}/standard_xlarge.${imgExtension}" alt="${resp[0].name}"></div>
                                     <div class="hide-on-med-and-down"><img src="${imgSSLfront}/standard_fantastic.${imgExtension}" alt="${resp[0].name}"></div>`);
             var splitName = resp[0].name.split(' (');
-                var shortName = splitName[0];
-                $('#characterName').html(`${shortName}`);
+            var shortName = splitName[0];
+            $('#characterName').html(`<div class="sm hide-on-med-and-up">${shortName}</div>
+                                        <div class="md hide-on-large-only hide-on-small-only">${shortName}</div>
+                                        <div class="lg hide-on-med-and-down">${shortName}</div>`);
             console.log(resp[0]); // for reference, to be removed
             console.log(resp[0].name); // for reference, to be removed
             console.log(resp[0].description); // for reference, to be removed
