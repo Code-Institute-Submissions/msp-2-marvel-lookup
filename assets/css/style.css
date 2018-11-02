@@ -1,0 +1,43 @@
+/*Colour scheme entries*/
+
+.red-bg-colour {
+    background-color: #D30026 !important;
+}
+
+.burgundy-bg-colour {
+    background-color: #9D152C !important;
+}
+
+.silver-light-bg-colour {
+    background-color: #C5CFD1 !important;
+}
+
+.silver-dark-bg-colour {
+    background-color: #868A93 !important;
+}
+
+.grey-bg-colour {
+    background-color: #5E6674 !important;
+}
+
+.red-txt-colour {
+    color: #D30026;
+}
+
+.burgundy-txt-colour {
+    color: #9D152C;
+}
+
+.silver-light-txt-colour {
+    color: #C5CFD1;
+}
+
+.silver-dark-txt-colour {
+    color: #868A93;
+}
+
+.grey-txt-colour: {
+    color: #5E6674;
+}
+
+/*End*/
