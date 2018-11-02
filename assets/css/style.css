@@ -45,9 +45,24 @@
     color: #5E6674;
 }
 
+/* Useful takes from BootstrapCSS */
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  /*padding-left: 15px;*/
+  /*padding-right: 15px;*/
+}
+
+
 /* General Page*/
 
 body {
+    background: url(../images/bg-marvel-characters.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     display: flex;
     height: 100vh;
     flex-direction: column;
@@ -75,7 +90,7 @@ footer {
     font-family: 'Fjalla One', sans-serif;
 }
 
-/* Main */
+/* Main Search Bar Area */
 
 .width-offset-10 {
     margin: 0 10%;
@@ -85,8 +100,43 @@ footer {
     padding: 0;
 }
 
+.input-field {
+    border-bottom: 1px solid #D30026;
+    border-left: 1px solid #D30026;
+    border-top: 1px solid #D30026;
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 .input-field .prefix.active {
-  color: #D30026;
+    color: #D30026;
+}
+
+input:not([type]),
+input[type=text]:not(.browser-default),
+input[type=password]:not(.browser-default),
+input[type=email]:not(.browser-default),
+input[type=url]:not(.browser-default),
+input[type=time]:not(.browser-default),
+input[type=date]:not(.browser-default),
+input[type=datetime]:not(.browser-default),
+input[type=datetime-local]:not(.browser-default),
+input[type=tel]:not(.browser-default),
+input[type=number]:not(.browser-default),
+input[type=search]:not(.browser-default),
+textarea.materialize-textarea {
+    border-bottom: 0;
+    margin: 0;
+    padding-left: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transition: border .3s, -webkit-box-shadow .3s;
+    transition: border .3s, -webkit-box-shadow .3s;
+    transition: box-shadow .3s, border .3s;
+    transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
 }
 
 input:not([type]):focus:not([readonly]),
@@ -102,14 +152,57 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #D30026;
-  /*box-shadow: 0 1px 0 0 #D30026;*/
+    border-bottom: 0;
+    box-shadow: 0 1px 0 0 #D30026;
 }
 
-.search-button {
+.row .search-button {
     position: relative;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.search-container-css {
+    border-bottom: 2px solid #D30026;
+    background-color: #FFFFFF;
+}
+
+#characterImage img {
+    border-bottom-right-radius: 50%;
+    border-bottom: 2px solid #D30026;
+    border-right: 2px solid #D30026;
+}
+
+#characterName {
+    font-family: 'Fjalla One', sans-serif;
+    font-weight: 600;
+    color:#D30026;
+    text-shadow: 1px 1px 2px #5E6674;
+}
+
+#characterName .sm {
+    font-size: 2.5rem;
+    padding-top: 30px;
+}
+
+#characterName .md {
+    font-size: 4rem;
+    padding-top: 20px;
+}
+
+#characterName .lg {
+    font-size: 6rem;
+    padding-top: 40px;
+}
+
+
+.collapsible {
+  border-top: 0;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  margin: 0.5rem 0 1rem 0;
 }
 
 /* Footer */
