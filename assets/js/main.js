@@ -39,17 +39,20 @@ function getCharacter() {
                                         <div class="lg hide-on-med-and-down">${shortName}</div>`);
                 var descriptionLen = resp[0].description.length;
                 if (descriptionLen == 0) {
-                    $('#characterDescription').html(`<div class="card"><div class="card-action white-text red-bg-colour">
-                                                    <a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">Bio at Marvel.com</a></div></div>`);
+                    $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-action white-text red-bg-colour">
+                                                    <a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">${shortName} at Marvel.com</a></div></div></div>`);
                 }
                 else {
-                    $('#characterDescription').html(`<div class="card"><div class="card-content"><p>${resp[0].description}</p></div>
-                                            <div class="card-action white-text red-bg-colour"><a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">Bio at Marvel.com</a></div></div>`);
+                    $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-content"><p>${resp[0].description}</p></div>
+                                            <div class="card-action white-text red-bg-colour"><a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">
+                                            ${shortName} at Marvel.com</a></div></div></div>`);
                 }
             }
             console.log(resp[0]); // for reference, to be removed
             console.log(resp[0].name); // for reference, to be removed
         });
+    // Hide opening page
+    $("#welcomeMessage").addClass('hide');
     // Reset search field to blank
     charName = "";
     document.getElementById("charForm").reset();
