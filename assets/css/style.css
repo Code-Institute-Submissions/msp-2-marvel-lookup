@@ -17,7 +17,7 @@
 
 .silver-light-bg-colour {
     background-color: #C5CFD1 !important;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .silver-dark-bg-colour {
@@ -50,6 +50,11 @@
     color: #5E6674;
 }
 
+.Lato {
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+}
+
 /* Useful takes from BootstrapCSS */
 
 .container-fluid {
@@ -57,6 +62,10 @@
     margin-left: auto;
     /*padding-left: 15px;*/
     /*padding-right: 15px;*/
+}
+
+.add-transparency {
+    opacity: 0.75;
 }
 
 
@@ -75,9 +84,13 @@ body {
 
 header {
     top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 
 main {
+    margin-top: 138px;
     flex: 1 0 auto;
 }
 
@@ -86,6 +99,9 @@ footer {
     color: #FFFFFF;
     padding-top: 10px;
     padding-bottom: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 
 /* Navigation */
@@ -174,6 +190,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
     background-color: #FFFFFF;
 }
 
+/* Main Content Area */
+
 #characterImage img {
     border-bottom-right-radius: 50%;
     border-bottom: 2px solid #D30026;
@@ -221,6 +239,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .card .card-content {
     padding: 6px;
     border-radius: 0 0 2px 2px;
+    font-size: 0.8rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
@@ -230,20 +251,26 @@ textarea.materialize-textarea:focus:not([readonly]) {
     text-transform: uppercase;
 }
 
-
-
-
-
-
-
-
-
-
 .collapsible {
     border-top: 0;
     border-right: 1px solid #ddd;
     border-left: 1px solid #ddd;
     margin: 0.5rem 0 1rem 0;
+}
+
+.collapsible-body {
+    display: none;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.divider {
+    height: 1px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    margin: 3px 0;
 }
 
 /* Footer */
@@ -252,4 +279,14 @@ textarea.materialize-textarea:focus:not([readonly]) {
     font-family: 'Fjalla One', sans-serif;
     font-weight: 600;
     color: #FFFFFF;
+}
+
+.footer-copyright {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.header-fixed {
+    margin-left: 0;
+    margin-right: 0;
 }
