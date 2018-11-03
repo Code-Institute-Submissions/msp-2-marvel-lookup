@@ -6,13 +6,13 @@
 /*Colour scheme entries*/
 
 .red-bg-colour {
-    background-color: #D30026 !important;
-    color: #FFFFFF;
+    background-color: #EC1D24 !important;
+    color: #FEFEFE;
 }
 
 .burgundy-bg-colour {
     background-color: #9D152C !important;
-    color: #FFFFFF;
+    color: #FEFEFE;
 }
 
 .silver-light-bg-colour {
@@ -22,16 +22,16 @@
 
 .silver-dark-bg-colour {
     background-color: #868A93 !important;
-    color: #FFFFFF;
+    color: #FEFEFE;
 }
 
 .grey-bg-colour {
     background-color: #5E6674 !important;
-    color: #FFFFFF;
+    color: #FEFEFE;
 }
 
 .red-txt-colour {
-    color: #D30026;
+    color: #EC1D24;
 }
 
 .burgundy-txt-colour {
@@ -96,7 +96,7 @@ main {
 
 footer {
     bottom: 0;
-    color: #FFFFFF;
+    color: #FEFEFE;
     padding-top: 10px;
     padding-bottom: 10px;
     position: fixed;
@@ -104,14 +104,21 @@ footer {
     z-index: 1000;
 }
 
-/* Navigation */
+/* Header */
+
+.header-fixed {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Header - Navigation */
 
 .navbar-fixed {
     height: 64px;
     font-family: 'Fjalla One', sans-serif;
 }
 
-/* Main Search Bar Area */
+/* Header - Search Bar */
 
 .width-offset-10 {
     margin: 0 10%;
@@ -122,16 +129,29 @@ footer {
 }
 
 .input-field {
-    border-bottom: 1px solid #D30026;
-    border-left: 1px solid #D30026;
-    border-top: 1px solid #D30026;
+    border-bottom: 1px solid #EC1D24;
+    border-left: 1px solid #EC1D24;
+    border-top: 1px solid #EC1D24;
     position: relative;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
 .input-field .prefix.active {
-    color: #D30026;
+    color: #EC1D24;
+}
+
+.autocomplete-content li .highlight {
+    color: #EC1D24;
+}
+
+.dropdown-content li>a,
+.dropdown-content li>span {
+    font-size: 16px;
+    color: #444;
+    display: block;
+    line-height: 22px;
+    padding: 14px 16px;
 }
 
 input:not([type]),
@@ -174,7 +194,7 @@ input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 0;
-    box-shadow: 0 1px 0 0 #D30026;
+    box-shadow: 0 1px 0 0 #EC1D24;
 }
 
 .row .search-button {
@@ -186,38 +206,42 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .search-container-css {
-    border-bottom: 2px solid #D30026;
-    background-color: #FFFFFF;
+    border-bottom: 2px solid #EC1D24;
+    background-color: #FEFEFE;
 }
 
-/* Main Content Area */
+/* Main Content */
 
 #characterImage img {
-    border-bottom-right-radius: 50%;
-    border-bottom: 2px solid #D30026;
-    border-right: 2px solid #D30026;
+    border-bottom-right-radius: 25%;
+    border-bottom: 2px solid #EC1D24;
+    border-right: 2px solid #EC1D24;
 }
 
 #characterName {
     font-family: 'Fjalla One', sans-serif;
     font-weight: 600;
-    color: #D30026;
+    color: #EC1D24;
     text-shadow: 1px 1px 2px #5E6674;
 }
 
-#characterName .sm {
-    font-size: 2.5rem;
+#characterName {
+    font-size: 2rem;
     padding-top: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
-#characterName .md {
-    font-size: 4rem;
-    padding-top: 20px;
+@media screen and (min-width: 321px) {
+    #characterName {
+        font-size: calc(2.3rem + 0.5 * ((100vw - 20rem) / 60));
+    }
 }
 
-#characterName .lg {
-    font-size: 6rem;
-    padding-top: 40px;
+@media screen and (min-width: 1000px) {
+    #characterName {
+        font-size: 5rem;
+    }
 }
 
 .trim-bottom-margin {
@@ -227,12 +251,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .card {
     position: relative;
     margin: .5rem 1rem 0;
-    background-color: #fff;
+    background-color: #FEFEFE;
     transition: -webkit-box-shadow .25s;
     transition: box-shadow .25s;
     transition: box-shadow .25s, -webkit-box-shadow .25s;
     border-radius: 2px;
-    border: 1px solid #d30026;
+    border: 1px solid #EC1D24;
     text-align: center;
 }
 
@@ -245,7 +269,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
-    color: #FFFFFF;
+    color: #FEFEFE;
     margin-right: 24px;
     transition: color .3s ease;
     text-transform: uppercase;
@@ -273,20 +297,15 @@ textarea.materialize-textarea:focus:not([readonly]) {
     margin: 3px 0;
 }
 
-/* Footer */
+/* Footer Content */
 
 .fjalla-link {
     font-family: 'Fjalla One', sans-serif;
     font-weight: 600;
-    color: #FFFFFF;
+    color: #FEFEFE;
 }
 
-.footer-copyright {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.header-fixed {
+.footer-fixed {
     margin-left: 0;
     margin-right: 0;
 }

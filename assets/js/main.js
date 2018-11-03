@@ -32,11 +32,12 @@ function getCharacter() {
                                     <div class="char-image hide-on-med-and-up"><img src="${imgSSLfront}/standard_large.${imgExtension}" alt="${resp[0].name}"></div>
                                     <div class="char-image hide-on-large-only hide-on-small-only"><img src="${imgSSLfront}/standard_xlarge.${imgExtension}" alt="${resp[0].name}"></div>
                                     <div class="char-image hide-on-med-and-down"><img src="${imgSSLfront}/standard_fantastic.${imgExtension}" alt="${resp[0].name}"></div>`);
-                var splitName = resp[0].name.split(' (');
-                var shortName = splitName[0];
-                $('#characterName').html(`<div class="sm hide-on-med-and-up">${shortName}</div>
-                                        <div class="md hide-on-large-only hide-on-small-only">${shortName}</div>
-                                        <div class="lg hide-on-med-and-down">${shortName}</div>`);
+                var splitNameParenthesis = resp[0].name.split(' (');
+                var splitNameForwardSlash = splitNameParenthesis[0].split('/');
+                var shortName = splitNameForwardSlash[0];
+                $('#characterName').html(`${shortName}`);
+                                        // <div class="hide-on-large-only hide-on-small-only">${shortName}</div>
+                                        // <div class="hide-on-med-and-down">${shortName}</div>`);
                 var descriptionLen = resp[0].description.length;
                 if (descriptionLen == 0) {
                     $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-action white-text red-bg-colour">
