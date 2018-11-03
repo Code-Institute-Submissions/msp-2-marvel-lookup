@@ -1,3 +1,8 @@
+/* Import */
+
+@import './lightbox.min.css';
+
+
 /*Colour scheme entries*/
 
 .red-bg-colour {
@@ -58,7 +63,7 @@
 /* General Page*/
 
 body {
-    background: url(../images/bg-marvel-characters.jpg) no-repeat center center fixed;
+    background: url(../images/index/bg-marvel-characters.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
