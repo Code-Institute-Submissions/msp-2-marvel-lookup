@@ -53,10 +53,10 @@
 /* Useful takes from BootstrapCSS */
 
 .container-fluid {
-  margin-right: auto;
-  margin-left: auto;
-  /*padding-left: 15px;*/
-  /*padding-right: 15px;*/
+    margin-right: auto;
+    margin-left: auto;
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
 }
 
 
@@ -183,7 +183,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 #characterName {
     font-family: 'Fjalla One', sans-serif;
     font-weight: 600;
-    color:#D30026;
+    color: #D30026;
     text-shadow: 1px 1px 2px #5E6674;
 }
 
@@ -202,12 +202,48 @@ textarea.materialize-textarea:focus:not([readonly]) {
     padding-top: 40px;
 }
 
+.trim-bottom-margin {
+    margin-bottom: 5px;
+}
+
+.card {
+    position: relative;
+    margin: .5rem 1rem 0;
+    background-color: #fff;
+    transition: -webkit-box-shadow .25s;
+    transition: box-shadow .25s;
+    transition: box-shadow .25s, -webkit-box-shadow .25s;
+    border-radius: 2px;
+    border: 1px solid #d30026;
+    text-align: center;
+}
+
+.card .card-content {
+    padding: 6px;
+    border-radius: 0 0 2px 2px;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+    color: #FFFFFF;
+    margin-right: 24px;
+    transition: color .3s ease;
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
 
 .collapsible {
-  border-top: 0;
-  border-right: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  margin: 0.5rem 0 1rem 0;
+    border-top: 0;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: 0.5rem 0 1rem 0;
 }
 
 /* Footer */
