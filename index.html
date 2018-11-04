@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
     <div class="container-fluid header-fixed">
         <header>
             <nav class="navbar-fixed">
@@ -39,12 +38,9 @@
             </div>
         </header>
     </div>
-
-
-
-    <main>
+    <main class=fs-bg-image>
         <div id="charID" class="hide"></div>
-        <div class="container-fluid bg-main">
+        <div class="container-fluid">
             <div id="welcomeMessage" class="width-offset-10">
                 <ul class="collapsible">
                     <li class="active">
@@ -58,6 +54,7 @@
                                 <div class="divider red-bg-colour"></div>
                                   This site was made to familiarise myself with obtaining data from an external source, 
                                   and then presenting it in a readable fashion. Having grown up on Marvel comics, the choice was obvious!<br>
+                                  In all, there are 1491 entries for you to explore... Who'd have thought!<br>
                                   The auto-completion will help find you a character you never heard of before today! 
                                 <div class="divider red-bg-colour"></div>
                             </span>
@@ -91,9 +88,9 @@
                         <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
                             <span>
                                 <div class="divider red-bg-colour"></div>
-                                  All thanks go to the makers of the <a class="red-txt-colour" href="https://developer.marvel.com" target="_blank"><b>Marvel API</b></a> 
+                                  Many thanks go to the makers of the <a class="red-txt-colour" href="https://developer.marvel.com" target="_blank"><b>Marvel API</b></a> 
                                   for making it possible for comics fans to get to everything Marvel!<br>
-                                  And of course many many thanks to all the people at Marvel, for providing everyone with endless entertainment!
+                                  Keep up the great work, like me, many really appreciate the Marvel Universe opening up to us!
                                 <div class="divider red-bg-colour"></div>
                             </span>
                         </div>
@@ -101,43 +98,37 @@
                 </ul>
             </div>
         </div>
-
         <div class="row trim-bottom-margin">
             <div id="characterImage" class="remove-padding col s5 m4 l3"></div>
             <div id="characterName" class="remove-padding center col s7 m8 l9"></div>
         </div>
         <div class="row">
             <div id="characterDescription" class="col s12"></div>
-
         </div>
-        <div class="row hide">
+        <div class="row width-offset-10 hidee">
             <ul class="collapsible">
                 <li>
-                    <div class="collapsible-header red-bg-colour">Comics</div>
-                    <div id="comicsList" class="collapsible-body silver-dark-bg-colour"><span>placeholder for Comics</span></div>
+                    <div id="comicsListHeader" class="hide collapsible-header red-bg-colour">Comics</div>
+                    <div id="comicsList" class="hide collapsible-body silver-dark-bg-colour"><span>placeholder for Comics</span></div>
                 </li>
                 <li>
-                    <div class="collapsible-header red-bg-colour">Series</div>
-                    <div id="seriesList" class="collapsible-body silver-dark-bg-colour"><span>placeholder for Series</span></div>
+                    <div id="seriesListHeader" class="hide collapsible-header red-bg-colour">Series</div>
+                    <div id="seriesList" class="hide collapsible-body silver-dark-bg-colour"><span>placeholder for Series</span></div>
                 </li>
                 <li>
-                    <div class="collapsible-header red-bg-colour">Events</div>
-                    <div id="eventsList" class="collapsible-body silver-dark-bg-colour"><span>placeholder for Events</span></div>
+                    <div id="eventsListHeader" class="hide collapsible-header red-bg-colour">Events</div>
+                    <div id="eventsList" class="hide collapsible-body silver-dark-bg-colour"><span>placeholder for Events</span></div>
                 </li>
             </ul>
         </div>
-        </div>
-
-
-        <!--</div>-->
     </main>
+
 
     <div class="container-fluid footer-fixed">
         <footer class="red-bg-colour center">
             <a class="fjalla-link" href="http://marvel.com" target="_blank">Data provided by Marvel. © 2018 MARVEL</a>
         </footer>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

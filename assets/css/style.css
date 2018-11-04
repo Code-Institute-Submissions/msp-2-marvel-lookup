@@ -72,14 +72,22 @@
 /* General Page*/
 
 body {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.fs-bg-image {
     background: url(../images/index/bg-marvel-characters.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
+    height: 99vh;
+    background-color: #FEFEFE;
+    color: #000000;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 header {
@@ -282,6 +290,19 @@ textarea.materialize-textarea:focus:not([readonly]) {
     margin: 0.5rem 0 1rem 0;
 }
 
+.collapsible-header span {
+    display: inline-block;
+    margin-left:auto;
+    margin-right:auto;
+    font-family: 'Fjalla One', sans-serif;
+    font-weight: 400;
+}
+
+.temp-font {
+    font-family: 'Fjalla One', sans-serif;
+    font-weight: 400;
+}
+
 .collapsible-body {
     display: none;
     border-bottom: 1px solid #ddd;
@@ -308,4 +329,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .footer-fixed {
     margin-left: 0;
     margin-right: 0;
+}
+
+/* Lightbox */
+
+.lb-nav a.lb-prev,
+.lb-nav a.lb-next {
+    opacity: 1;
 }
