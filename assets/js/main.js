@@ -3,6 +3,7 @@ var charName, output;
 $(document).ready(function() {
     $.getScript('/assets/js/characters.js') // populate autocomplete with script in file characters.js
     $('.collapsible').collapsible();
+    $('.fixed-action-btn').floatingActionButton();
 });
 
 function getCharacter() {
@@ -47,7 +48,7 @@ function getCharacter() {
                     $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-content"><p>${resp[0].description}</p></div>
                                             <div class="card-action red-bg-colour"><a class="red-bg-colour Fjalla" href="${resp[0].urls[1].url}" target="_blank">Bio@Marvel.com</a></div></div></div>`);
                 }
-                $('#comicsList, #seriesList, #eventList').html('').addClass('hide');
+                $('#comicsList, #seriesList, #eventsList').html('').addClass('hide');
                 $('#comicsListHeader, #seriesListHeader, #eventsListHeader').html(`<span><img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({ opacity: 1 }, 100).removeClass('hide');
 
                 setTimeout([
@@ -64,9 +65,7 @@ function getCharacter() {
 }
 
 function getMoreInfo(type) {
-    // Remove welcomeMessage from view and clean up collapsible headers
     $("#welcomeMessage").addClass('hide');
-    // Decide follow-up search to execute
     var charID = $("#charID").text();
     var url;
     if (type == 'comics') {
@@ -80,13 +79,14 @@ function getMoreInfo(type) {
     }
     $.ajax(url, {
             type: 'GET',
-            dataType: 'json'
-        })
-        .fail(function(xhr) {
-            if (xhr.status == 500) {
-                $.ajax(this);
-                return;
-            }
+            dataType: 'json',
+            error: function(xhr) {
+                    if (xhr.status == 500) {
+                        console.log('error 500 retrieving: ' + type);
+                        $.ajax(this);
+                        return;
+                    }
+                }
         })
         .done(function(resp) {
             resp = resp.data.results;
@@ -99,8 +99,7 @@ function getMoreInfo(type) {
                 }
                 else {
                     $('#comicsListHeader').html(`<span>Comics List</span>`);
-                    console.log('Comics results:', resp);
-                    output += `<span><div class="row format-list silver-light-bg-colour">`
+                    output += `<span><div class="row format-list silver-light-bg-colour">`;
                     for (var i = 0; i < respLen; i++) {
                         imgSplitPath = resp[i].images[0].path.split('//');
                         imgSSLfront = 'https://' + imgSplitPath[1];
@@ -119,21 +118,19 @@ function getMoreInfo(type) {
                 }
                 else {
                     $('#seriesListHeader').html(`<span>Series List</span>`);
-                    console.log('Series results:', resp);
-                    output += `<span><div class="row format-list silver-light-bg-colour"><table>`
+                    output += `<span><div class="row format-list silver-light-bg-colour"><table>`;
                     for (var i = 0; i < respLen; i++) {
                         output += `<tr><td><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank">${resp[i].title}</a></td>`;
                         imgSplitPath = resp[i].thumbnail.path.split('//');
                         imgSSLfront = 'https://' + imgSplitPath[1];
                         imgExtension = resp[i].thumbnail.extension;
                         if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
-                            output += `<td><img src="./assets/images/notfound/na-100x150.jpg"></a></td></tr>`
+                            output += `<td><img src="./assets/images/notfound/na-100x150.jpg"></a></td></tr>`;
                         }
                         else {
                             output += `<td><a class="imageSeries-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="SeriesImages">
                                         <img class="imageSeries" src="${imgSSLfront}/portrait_medium.${imgExtension}" alt="${resp[i].title}"></a></td></tr>`;
                         }
-
                     }
                     $('#seriesList').html(`${output}<tr><td><a class="red-txt-colour Fjalla" href="http://marvel.com">© 2018 MARVEL</a></td></tr></table></div>`).removeClass('hide');
                 }
@@ -144,7 +141,16 @@ function getMoreInfo(type) {
                 }
                 else {
                     $('#eventsListHeader').html(`<span>Events List</span>`);
-                    console.log('Events results:', resp);
+                    output += `<span><div class="row format-list silver-light-bg-colour"><table>`;
+                    for (var i = 0; i < respLen; i++) {
+                        output += `<tr><td><h6><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank">${resp[i].title}</a></h6><p class="grey-txt-colour">${resp[i].description}</p></td>`;
+                        imgSplitPath = resp[i].thumbnail.path.split('//');
+                        imgSSLfront = 'https://' + imgSplitPath[1];
+                        imgExtension = resp[i].thumbnail.extension;
+                        output += `<td><a class="imageEvents-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="EventsImages">
+                                    <img class="imageEvents hide-on-small-only" src="${imgSSLfront}/portrait_medium.${imgExtension}" alt="${resp[i].title}"></a></td></tr>`;
+                    }
+                    $('#eventsList').html(`${output}<tr><td><a class="red-txt-colour Fjalla" href="http://marvel.com">© 2018 MARVEL</a></td></tr></table></div>`).removeClass('hide');
                 }
             }
         });
