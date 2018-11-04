@@ -55,13 +55,15 @@
     letter-spacing: 1px;
 }
 
+.Fjalla {
+    font-family: 'Fjalla One', sans-serif;
+}
+
 /* Useful takes from BootstrapCSS */
 
 .container-fluid {
     margin-right: auto;
     margin-left: auto;
-    /*padding-left: 15px;*/
-    /*padding-right: 15px;*/
 }
 
 .add-transparency {
@@ -99,7 +101,9 @@ header {
 
 main {
     margin-top: 138px;
-    flex: 1 0 auto;
+    /*flex: 1 0 auto;*/
+    top: 138px;
+    margin-bottom: 40px;
 }
 
 footer {
@@ -256,6 +260,13 @@ textarea.materialize-textarea:focus:not([readonly]) {
     margin-bottom: 5px;
 }
 
+.format-list {
+    border-radius: 5px;
+    border: 1px solid #EC1D24;
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+
 .card {
     position: relative;
     margin: .5rem 1rem 0;
@@ -278,9 +289,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
     color: #FEFEFE;
-    margin-right: 24px;
+    margin-right: 0;
     transition: color .3s ease;
     text-transform: uppercase;
+    text-align:center;
 }
 
 .collapsible {
@@ -309,6 +321,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
     box-sizing: border-box;
     padding: 0.5rem;
     text-align: center;
+}
+
+.collapsible-body img {
+    border-radius: 5%;
 }
 
 .divider {

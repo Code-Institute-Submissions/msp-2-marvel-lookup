@@ -1,14 +1,9 @@
-var charName;
+var charName, output;
 
 $(document).ready(function() {
     $.getScript('/assets/js/characters.js') // populate autocomplete with script in file characters.js
     $('.collapsible').collapsible();
-    // $('#charName').change(function() { 
-    //     var parentForm = $(this).closest("form");
-    //     if (parentForm)
-    //         parentForm.submit(getCharacter());
 });
-
 
 function getCharacter() {
     charName = document.getElementById('charName').value;
@@ -38,16 +33,15 @@ function getCharacter() {
                 $('#characterName').html(`${shortName}`);
                 var descriptionLen = resp[0].description.length;
                 if (descriptionLen == 0) {
-                    $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-action white-text red-bg-colour">
-                                                    <a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">${shortName} at Marvel.com</a></div></div></div>`);
+                    $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-action red-bg-colour">
+                                                    <a class="red-bg-colour Fjalla" href="${resp[0].urls[1].url}" target="_blank">Bio@Marvel.com</a></div></div></div>`);
                 }
                 else {
                     $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-content"><p>${resp[0].description}</p></div>
-                                            <div class="card-action white-text red-bg-colour"><a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">
-                                            ${shortName} at Marvel.com</a></div></div></div>`);
+                                            <div class="card-action red-bg-colour"><a class="red-bg-colour Fjalla" href="${resp[0].urls[1].url}" target="_blank">Bio@Marvel.com</a></div></div></div>`);
                 }
                 $('#comicsList, #seriesList, #eventList').html('').addClass('hide');
-                $('#comicsListHeader, #seriesListHeader, #eventsListHeader').html(`<span><img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({opacity:1},1000).removeClass('hide');
+                $('#comicsListHeader, #seriesListHeader, #eventsListHeader').html(`<span><img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({ opacity: 1 }, 100).removeClass('hide');
 
                 setTimeout([
                     getMoreInfo('comics'),
@@ -55,7 +49,6 @@ function getCharacter() {
                     getMoreInfo('events')
                 ], 1000);
             }
-            console.log('Character result:', resp);
         });
     // Reset search field to blank
     charName = "";
@@ -84,20 +77,32 @@ function getMoreInfo(type) {
         })
         .done(function(resp) {
             resp = resp.data.results;
-            var respLen = resp.length;
+            var respLen = resp.length, imgSplitPath, imgSSLfront, imgExtension;
+            output='';
             if (type == 'comics') {
                 if (respLen == 0) {
-                    $('#comicsListHeader').html(`<span>>>> <del> No Comics Found </del> <<<</span>`).animate({opacity: 0.7},1000);
+                    $('#comicsListHeader').html(`<span>No Comics Found</span>`).animate({ opacity: 0.85 }, 1000);
 
                 }
                 else {
                     $('#comicsListHeader').html(`<span>Comics List</span>`);
                     console.log('Comics results:', resp);
+                    output += `<span><div class="row format-list silver-light-bg-colour">`
+                    for (var i = 0; i < respLen; i++) {
+                        imgSplitPath = resp[i].images[0].path.split('//');
+                        imgSSLfront = 'https://' + imgSplitPath[1];
+                        imgExtension = resp[i].images[0].extension;
+                        output += `<div class="col s6 m3 l2">
+                                    <a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="Covers">
+                                    <img class="imageCovers" src="${imgSSLfront}/portrait_medium.${imgExtension}" alt="${resp[i].title}"></a></div>`;
+                    }
+                    output += `<h6 class="col s12"><a class="red-txt-colour Fjalla" href="http://marvel.com">© 2018 MARVEL</a></h6></span>`;
+                    $('#comicsList').html(`<span>${output}<span>`).removeClass('hide');
                 }
             }
             if (type == 'series') {
                 if (respLen == 0) {
-                    $('#seriesListHeader').html(`<span>>>> <del> No Series Found </del> <<<</span>`).animate({opacity:0.7},1000);
+                    $('#seriesListHeader').html(`<span>No Series Found</span>`).animate({ opacity: 0.85 }, 1000);
                 }
                 else {
                     $('#seriesListHeader').html(`<span>Series List</span>`);
@@ -106,7 +111,7 @@ function getMoreInfo(type) {
             }
             if (type == 'events') {
                 if (respLen == 0) {
-                    $('#eventsListHeader').html(`<span>>>> <del> No Events Found </del> <<<</span>`).animate({opacity:0.7},1000);
+                    $('#eventsListHeader').html(`<span>No Events Found</span>`).animate({ opacity: 0.85 }, 1000);
                 }
                 else {
                     $('#eventsListHeader').html(`<span>Events List</span>`);
