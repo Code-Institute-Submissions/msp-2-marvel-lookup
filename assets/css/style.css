@@ -287,7 +287,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
     letter-spacing: 1px;
 }
 
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating),
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
     color: #FEFEFE;
     margin-right: 0;
     transition: color .3s ease;
@@ -327,6 +328,18 @@ textarea.materialize-textarea:focus:not([readonly]) {
     border-radius: 5%;
 }
 
+.collapsible-body tr {
+    border-bottom: 0;
+}
+
+.collapsible-body td, th {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top;
+    border-radius: 2px;
+}
+
 .divider {
     height: 1px;
     overflow: hidden;
@@ -335,12 +348,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 
 /* Footer Content */
-
-.fjalla-link {
-    font-family: 'Fjalla One', sans-serif;
-    font-weight: 600;
-    color: #FEFEFE;
-}
 
 .footer-fixed {
     margin-left: 0;

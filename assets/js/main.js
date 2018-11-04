@@ -23,10 +23,17 @@ function getCharacter() {
                 var imgSplitPath = resp[0].thumbnail.path.split('//');
                 var imgSSLfront = 'https://' + imgSplitPath[1];
                 var imgExtension = resp[0].thumbnail.extension;
-                $('#characterImage').html(`<a class="char-image-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="characterImage">
+                if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
+                    $('#characterImage').html(`<div class="hide-on-med-and-up"><img src="./assets/images/notfound/na-140x140.jpg" alt="Image N/A"></div>
+                                    <div class="hide-on-large-only hide-on-small-only"><img src="./assets/images/notfound/na-200x200.jpg" alt="Image N/A"></div>
+                                    <div class="hide-on-med-and-down"><img src="/assets/images/notfound/na-250x250.jpg" alt="Image N/A"></div>`);
+                }
+                else {
+                    $('#characterImage').html(`<a class="char-image-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="characterImage">
                                     <div class="char-image hide-on-med-and-up"><img src="${imgSSLfront}/standard_large.${imgExtension}" alt="${resp[0].name}"></div>
                                     <div class="char-image hide-on-large-only hide-on-small-only"><img src="${imgSSLfront}/standard_xlarge.${imgExtension}" alt="${resp[0].name}"></div>
                                     <div class="char-image hide-on-med-and-down"><img src="${imgSSLfront}/standard_fantastic.${imgExtension}" alt="${resp[0].name}"></div>`);
+                }
                 var splitNameParenthesis = resp[0].name.split(' (');
                 var splitNameForwardSlash = splitNameParenthesis[0].split('/');
                 var shortName = splitNameForwardSlash[0];
@@ -75,14 +82,20 @@ function getMoreInfo(type) {
             type: 'GET',
             dataType: 'json'
         })
+        .fail(function(xhr) {
+            if (xhr.status == 500) {
+                $.ajax(this);
+                return;
+            }
+        })
         .done(function(resp) {
             resp = resp.data.results;
-            var respLen = resp.length, imgSplitPath, imgSSLfront, imgExtension;
-            output='';
+            var respLen = resp.length,
+                imgSplitPath, imgSSLfront, imgExtension;
+            output = '';
             if (type == 'comics') {
                 if (respLen == 0) {
                     $('#comicsListHeader').html(`<span>No Comics Found</span>`).animate({ opacity: 0.85 }, 1000);
-
                 }
                 else {
                     $('#comicsListHeader').html(`<span>Comics List</span>`);
@@ -93,7 +106,7 @@ function getMoreInfo(type) {
                         imgSSLfront = 'https://' + imgSplitPath[1];
                         imgExtension = resp[i].images[0].extension;
                         output += `<div class="col s6 m3 l2">
-                                    <a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="Covers">
+                                    <a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="ComicImages">
                                     <img class="imageCovers" src="${imgSSLfront}/portrait_medium.${imgExtension}" alt="${resp[i].title}"></a></div>`;
                     }
                     output += `<h6 class="col s12"><a class="red-txt-colour Fjalla" href="http://marvel.com">© 2018 MARVEL</a></h6></span>`;
@@ -107,6 +120,22 @@ function getMoreInfo(type) {
                 else {
                     $('#seriesListHeader').html(`<span>Series List</span>`);
                     console.log('Series results:', resp);
+                    output += `<span><div class="row format-list silver-light-bg-colour"><table>`
+                    for (var i = 0; i < respLen; i++) {
+                        output += `<tr><td><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank">${resp[i].title}</a></td>`;
+                        imgSplitPath = resp[i].thumbnail.path.split('//');
+                        imgSSLfront = 'https://' + imgSplitPath[1];
+                        imgExtension = resp[i].thumbnail.extension;
+                        if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
+                            output += `<td><img src="./assets/images/notfound/na-100x150.jpg"></a></td></tr>`
+                        }
+                        else {
+                            output += `<td><a class="imageSeries-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="SeriesImages">
+                                        <img class="imageSeries" src="${imgSSLfront}/portrait_medium.${imgExtension}" alt="${resp[i].title}"></a></td></tr>`;
+                        }
+
+                    }
+                    $('#seriesList').html(`${output}<tr><td><a class="red-txt-colour Fjalla" href="http://marvel.com">© 2018 MARVEL</a></td></tr></table></div>`).removeClass('hide');
                 }
             }
             if (type == 'events') {
