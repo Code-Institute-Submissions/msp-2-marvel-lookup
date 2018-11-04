@@ -36,8 +36,6 @@ function getCharacter() {
                 var splitNameForwardSlash = splitNameParenthesis[0].split('/');
                 var shortName = splitNameForwardSlash[0];
                 $('#characterName').html(`${shortName}`);
-                                        // <div class="hide-on-large-only hide-on-small-only">${shortName}</div>
-                                        // <div class="hide-on-med-and-down">${shortName}</div>`);
                 var descriptionLen = resp[0].description.length;
                 if (descriptionLen == 0) {
                     $('#characterDescription').html(`<div class="width-offset-10"><div class="card"><div class="card-action white-text red-bg-colour">
@@ -48,14 +46,73 @@ function getCharacter() {
                                             <div class="card-action white-text red-bg-colour"><a class="fjalla-link" href="${resp[0].urls[1].url}" target="_blank">
                                             ${shortName} at Marvel.com</a></div></div></div>`);
                 }
+                $('#comicsList, #seriesList, #eventList').html('').addClass('hide');
+                $('#comicsListHeader, #seriesListHeader, #eventsListHeader').html(`<span><img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({opacity:1},1000).removeClass('hide');
+
+                setTimeout([
+                    getMoreInfo('comics'),
+                    getMoreInfo('series'),
+                    getMoreInfo('events')
+                ], 1000);
             }
-            console.log(resp[0]); // for reference, to be removed
-            console.log(resp[0].name); // for reference, to be removed
+            console.log('Character result:', resp);
         });
-    // Hide opening page
-    $("#welcomeMessage").addClass('hide');
     // Reset search field to blank
     charName = "";
     document.getElementById("charForm").reset();
+    return false;
+}
+
+function getMoreInfo(type) {
+    // Remove welcomeMessage from view and clean up collapsible headers
+    $("#welcomeMessage").addClass('hide');
+    // Decide follow-up search to execute
+    var charID = $("#charID").text();
+    var url;
+    if (type == 'comics') {
+        url = 'https://gateway.marvel.com:443/v1/public/characters/' + charID + '/comics?apikey=caed232232648c6736c78c39d5280237&format=comic&formatType=comic&dateRange=2018-01-01%2C%202018-12-31&orderBy=focDate&limit=100';
+    }
+    if (type == 'series') {
+        url = 'https://gateway.marvel.com:443/v1/public/characters/' + charID + '/series?apikey=caed232232648c6736c78c39d5280237&limit=100&startYear=2018&contains=comic&orderBy=startYear';
+    }
+    if (type == 'events') {
+        url = 'https://gateway.marvel.com:443/v1/public/events?apikey=caed232232648c6736c78c39d5280237&orderBy=startDate&limit=100&characters=' + charID;
+    }
+    $.ajax(url, {
+            type: 'GET',
+            dataType: 'json'
+        })
+        .done(function(resp) {
+            resp = resp.data.results;
+            var respLen = resp.length;
+            if (type == 'comics') {
+                if (respLen == 0) {
+                    $('#comicsListHeader').html(`<span>>>> <del> No Comics Found </del> <<<</span>`).animate({opacity: 0.7},1000);
+
+                }
+                else {
+                    $('#comicsListHeader').html(`<span>Comics List</span>`);
+                    console.log('Comics results:', resp);
+                }
+            }
+            if (type == 'series') {
+                if (respLen == 0) {
+                    $('#seriesListHeader').html(`<span>>>> <del> No Series Found </del> <<<</span>`).animate({opacity:0.7},1000);
+                }
+                else {
+                    $('#seriesListHeader').html(`<span>Series List</span>`);
+                    console.log('Series results:', resp);
+                }
+            }
+            if (type == 'events') {
+                if (respLen == 0) {
+                    $('#eventsListHeader').html(`<span>>>> <del> No Events Found </del> <<<</span>`).animate({opacity:0.7},1000);
+                }
+                else {
+                    $('#eventsListHeader').html(`<span>Events List</span>`);
+                    console.log('Events results:', resp);
+                }
+            }
+        });
     return false;
 }
