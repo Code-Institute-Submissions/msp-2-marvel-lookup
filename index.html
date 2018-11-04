@@ -98,7 +98,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row trim-bottom-margin">
+        <div id="top" class="row trim-bottom-margin">
             <div id="characterImage" class="remove-padding col s5 m4 l3"></div>
             <div id="characterName" class="remove-padding center col s7 m8 l9"></div>
         </div>
@@ -113,23 +113,27 @@
                 </li>
                 <li>
                     <div id="seriesListHeader" class="hide collapsible-header red-bg-colour">Series</div>
-                    <div id="seriesList" class="hide collapsible-body silver-dark-bg-colour"><span>placeholder for Series</span></div>
+                    <div id="seriesList" class="hide collapsible-body silver-dark-bg-colour"></div>
                 </li>
                 <li>
                     <div id="eventsListHeader" class="hide collapsible-header red-bg-colour">Events</div>
-                    <div id="eventsList" class="hide collapsible-body silver-dark-bg-colour"><span>placeholder for Events</span></div>
+                    <div id="eventsList" class="hide collapsible-body silver-dark-bg-colour"></div>
                 </li>
             </ul>
         </div>
+
+        <div class="fixed-action-btn">
+            <a href="#top" class="btn-floating red-bg-colour">
+                <i class="large material-icons">home</i>
+            </a>
+        </div>
+
     </main>
-
-
     <div class="container-fluid footer-fixed">
         <footer class="red-bg-colour center">
             <a class="Fjalla red-bg-colour" href="http://marvel.com" target="_blank">Data provided by Marvel. © 2018 MARVEL</a>
         </footer>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="./assets/js/lightbox.min.js"></script>
