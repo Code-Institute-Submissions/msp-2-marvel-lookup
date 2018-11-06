@@ -328,8 +328,13 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .imageCovers,
 .imageSeries,
 .imageEvents,
-.imageMissing {
+.imageMissing,
+.seriesCharacter {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+.seriesCharacterImage {
+    margin-top: 10px;
 }
 
 .collapsible-body {
@@ -379,6 +384,17 @@ th {
     padding-top: 15px;
     margin-bottom: 0;
     z-index: 1997;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    padding: 0;
+    max-height: 80%;
+    width: 80%;
+    margin: 60px auto auto;
 }
 
 /* Footer Content */

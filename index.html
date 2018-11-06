@@ -27,7 +27,7 @@
                     <form id="charForm" onsubmit="getCharacter();return false">
                         <div class="input-field col s10">
                             <label for="charName"></label>
-                            <input type="text" id="charName" class="autocomplete" placeholder="e.g. Beast" required>
+                            <input type="text" id="charName" class="autocomplete" placeholder="Type a name (e.g. Beast)..." required>
                         </div>
                         <div class="search-button col s1">
                             <button class="btn waves-effect waves-light red-bg-colour" type="submit" name="action">
@@ -122,23 +122,49 @@
                 </li>
             </ul>
         </div>
-
         <div class="fixed-action-btn">
             <a href="#top" class="btn-floating red-bg-colour">
                 <i class="large material-icons">home</i>
             </a>
         </div>
-
     </main>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>All characters for event xxx</h4>
+            <p>Where images, names and descriptions shall live</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis fermentum tincidunt. Morbi porttitor, ex in egestas mattis, nibh purus ultrices turpis, ultricies laoreet ex augue nec purus. Fusce sollicitudin dolor sit amet luctus convallis.
+                Donec et viverra ipsum, sed ornare lorem. Vivamus ac accumsan neque, quis malesuada risus. Ut interdum vel leo vitae egestas. Ut efficitur quam ligula, ut sagittis diam aliquam in. Cras aliquet justo et dui ultrices, id eleifend lectus
+                pulvinar. Vivamus tincidunt tincidunt magna vitae sagittis. Sed ac mauris turpis. Integer rutrum congue fringilla. Vivamus eu leo ut sapien varius placerat vel sed erat. Nulla facilisi. Nullam ullamcorper sapien a velit dapibus convallis.
+                Etiam viverra, urna quis mattis mattis, ante diam egestas tortor, sollicitudin ultricies magna velit nec nulla. In hac habitasse platea dictumst. Cras sed lacus quam. Suspendisse tincidunt est ante, eu luctus arcu interdum elementum. Nunc
+                a rutrum nunc, eu aliquam sem. Integer accumsan nisi ac ipsum auctor, id commodo ipsum venenatis. Vivamus nisl massa, molestie vitae commodo eget, volutpat quis sapien. Phasellus at leo eu lorem tempus condimentum faucibus sed est. Phasellus
+                id ante mi. Proin vel commodo erat, vitae semper metus. Quisque diam purus, suscipit ut nibh sit amet, molestie faucibus mi. Phasellus egestas lectus quis luctus gravida. Donec id nisl vitae dui euismod molestie ut eu neque. Aliquam lacinia
+                eget ligula a interdum. Sed maximus nulla velit, id lobortis mauris hendrerit eu. Nulla non molestie ante, in placerat nisi. Quisque non risus dolor. Donec dapibus libero mi, id fringilla enim varius at. In nisl sapien, porttitor ac ultricies
+                lacinia, laoreet non urna. Curabitur ullamcorper, urna a volutpat pretium, massa sapien congue ante, eget venenatis ante leo ut purus. Proin nec gravida ex, at euismod tellus. Nullam eu lacus sed elit venenatis euismod. Fusce libero ante,
+                varius quis nulla vitae, gravida auctor quam. Duis at nulla et velit porttitor tristique. Sed dui arcu, commodo ac felis at, sagittis sagittis sem. Suspendisse tellus ante, fringilla cursus vulputate eu, ultricies at quam. Nam finibus
+                mauris vel ex auctor, ac viverra mi posuere. Sed a ligula tempus, dictum mauris ac, condimentum ante. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam efficitur, erat ac sollicitudin suscipit,
+                mi nisi venenatis mi, id maximus mi augue id felis. Donec accumsan faucibus tellus, in ornare dolor pulvinar vitae. Maecenas in orci quis ex laoreet tristique. Sed maximus ullamcorper magna id lacinia. Suspendisse vulputate est quis interdum
+                auctor. Vivamus sem est, tincidunt sed libero accumsan, fringilla lobortis lectus. Aliquam erat urna, aliquet quis purus eu, mattis sollicitudin sapien. Morbi bibendum dapibus venenatis. Nulla et auctor tellus. Etiam malesuada dui turpis,
+                ac ullamcorper arcu porttitor non. Proin vehicula elit lectus, ut suscipit neque iaculis lobortis. Sed auctor ut velit in cursus. Suspendisse ac iaculis leo, at gravida risus. In pretium, tortor sed pellentesque efficitur, nulla massa
+                cursus enim, nec blandit elit odio quis lectus. Suspendisse enim sapien, tincidunt ac maximus quis, volutpat a leo. Aenean ante massa, imperdiet vitae viverra gravida, venenatis vitae leo. Nulla cursus diam eu dolor feugiat, sit amet egestas
+                leo accumsan. Aliquam tristique ac ligula ac rutrum. Fusce magna felis, imperdiet ut pharetra quis, dignissim at enim. Vivamus porttitor nulla mauris, et venenatis diam iaculis aliquam. Vestibulum maximus varius enim, ut pretium tortor
+                dictum vel. Sed convallis eros turpis, non pulvinar neque bibendum nec. Sed mattis id elit nec laoreet.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="fas fa-window-close red-txt-colour"></i></a>
+        </div>
+        <div id="modal-block-fade" style="display: none"></div>
+        <div id="modal-block-spinner" style="display: none"><img src="./assets/images/pre-loaders/result-page.gif" alt="Loading..." /></div>
+
+    </div>
+
     <div class="container-fluid footer-fixed">
         <footer class="red-bg-colour center">
             <a class="Fjalla red-bg-colour" href="http://marvel.com" target="_blank">Data provided by Marvel. © 2018 MARVEL</a>
         </footer>
     </div>
-    
     <div id="screen-block-fade" style="display: none"></div>
     <div id="screen-block-spinner" style="display: none"><img src="./assets/images/pre-loaders/result-page.gif" alt="Loading..." /></div>
-    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="./assets/js/lightbox.min.js"></script>
