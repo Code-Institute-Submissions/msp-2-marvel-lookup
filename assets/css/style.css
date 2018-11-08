@@ -1,5 +1,6 @@
 /* Import */
 
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One|Lato:300,400&subset=latin-ext');
 @import './lightbox.min.css';
 
 
@@ -73,10 +74,21 @@
 
 /* General Page*/
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     display: flex;
     height: 100vh;
     flex-direction: column;
+    background-color: #000;
+}
+
+.max-width-1000-centered {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .fs-bg-image {
@@ -96,14 +108,14 @@ header {
     top: 0;
     position: fixed;
     width: 100%;
+    max-width: 1000px;
     z-index: 1939;
+    /*box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);*/
 }
 
-main {
-    margin-top: 138px;
-    /*flex: 1 0 auto;*/
-    top: 138px;
-    margin-bottom: 40px;
+.behind-logo-and-search {
+    /*margin-top: 138px;*/
+    height: 130px;
 }
 
 footer {
@@ -113,7 +125,9 @@ footer {
     padding-bottom: 10px;
     position: fixed;
     width: 100%;
+    max-width: 1000px;
     z-index: 1961;
+    border-top: 2px solid #FEFEFE;
 }
 
 /* Header */
@@ -128,26 +142,34 @@ footer {
 .navbar-fixed {
     height: 64px;
     font-family: 'Fjalla One', sans-serif;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12), 0 0 0 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Header - Search Bar */
 
-.width-offset-10 {
-    margin: 0 10%;
+.width-offset-5 {
+    margin: 0 5%;
 }
 
 .row .remove-padding {
     padding: 0;
 }
 
-.input-field {
-    border-bottom: 1px solid #EC1D24;
-    border-left: 1px solid #EC1D24;
-    border-top: 1px solid #EC1D24;
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
+/*.input-field {*/
+
+/*    border-bottom: 1px solid #EC1D24;*/
+
+/*    border-left: 1px solid #EC1D24;*/
+
+/*    border-top: 1px solid #EC1D24;*/
+
+/*    position: relative;*/
+
+/*    margin-top: 1rem;*/
+
+/*    margin-bottom: 1rem;*/
+
+/*}*/
 
 .input-field .prefix.active {
     color: #EC1D24;
@@ -179,17 +201,19 @@ input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
-    border-bottom: 0;
+    border: 1px solid #EC1D24;
     margin: 0;
-    padding-left: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-    -webkit-transition: border .3s, -webkit-box-shadow .3s;
-    transition: border .3s, -webkit-box-shadow .3s;
-    transition: box-shadow .3s, border .3s;
-    transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+    height: 34px;
+    padding-left: 6px;
+    /*padding-left: 0;*/
+    /*-webkit-box-shadow: none;*/
+    /*box-shadow: none;*/
+    /*-webkit-box-sizing: content-box;*/
+    /*box-sizing: content-box;*/
+    /*-webkit-transition: border .3s, -webkit-box-shadow .3s;*/
+    /*transition: border .3s, -webkit-box-shadow .3s;*/
+    /*transition: box-shadow .3s, border .3s;*/
+    /*transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;*/
 }
 
 input:not([type]):focus:not([readonly]),
@@ -205,21 +229,15 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 0;
-    box-shadow: 0 1px 0 0 #EC1D24;
-}
-
-.row .search-button {
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    border: 1px solid #EC1D24;
+    box-shadow: 0 0 0 0 #000;
+    padding-left: 6px, ;
 }
 
 .search-container-css {
     border-bottom: 2px solid #EC1D24;
     background-color: #FEFEFE;
+    margin-bottom: 0;
 }
 
 /* Main Content */
@@ -238,6 +256,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 2px solid #EC1D24;
     border-right: 2px solid #EC1D24;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: auto;
+    max-width: 25vw;
 }
 
 #characterName {
@@ -245,25 +266,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
     font-weight: 600;
     color: #EC1D24;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-#characterName {
-    font-size: 2rem;
-    padding-top: 30px;
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-@media screen and (min-width: 321px) {
-    #characterName {
-        font-size: calc(2.3rem + 0.5 * ((100vw - 20rem) / 60));
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    #characterName {
-        font-size: 5rem;
-    }
+    font-size: calc(2rem + 0.5 * ((100vw - 15rem) / 15));
+    padding-right: 5%;
+    padding-left: 5%;
+    height: 25vw;
+    max-height: 250px;
 }
 
 .trim-bottom-margin {
@@ -329,12 +336,18 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .imageSeries,
 .imageEvents,
 .imageMissing,
-.seriesCharacter {
+.seriesCharacter,
+.eventCharacter {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
-.seriesCharacterImage {
+.seriesCharacterImage,
+.eventCharacterImage {
     margin-top: 10px;
+}
+
+.toggle-target {
+    display: none;
 }
 
 .collapsible-body {
@@ -362,6 +375,24 @@ th {
     border-radius: 2px;
 }
 
+.extra-bottom-margin {
+    margin-bottom: 60px;
+}
+
+.loader-padding {
+    padding: 4px 16px 0;
+}
+
+.size55 {
+    height: 55px;
+    width: 55px;
+}
+
+.size70 {
+    height: 70px;
+    width: 70px;
+}
+
 .row-divider tr {
     border-bottom: 1px solid #EC1D24;
 }
@@ -384,17 +415,6 @@ th {
     padding-top: 15px;
     margin-bottom: 0;
     z-index: 1997;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-    padding: 0;
-    max-height: 80%;
-    width: 80%;
-    margin: 60px auto auto;
 }
 
 /* Footer Content */
@@ -438,4 +458,23 @@ th {
     z-index: 9002;
     text-align: center;
     overflow: auto;
+}
+
+.input-field {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    padding: 0 !important;
+}
+
+.search-button {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0 !important;
+}
+
+.btn-flat {
+    width: 100%;
 }
