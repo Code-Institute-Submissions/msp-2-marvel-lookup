@@ -7,168 +7,142 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Marvel Character Lookup</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <link href="https://fonts.googleapis.com/icon?family=Lato|Fjalla+One|Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
+    <link rel="shortcut icon" type="image/png" href="./assets/images/index/favicon.ico">
 </head>
 
 <body>
-    <div class="container-fluid header-fixed">
-        <header>
-            <nav class="navbar-fixed">
-                <div class="nav-wrapper red-bg-colour">
-                    <div class="brand-logo center">
-                        <img src="./assets/images/index/logo-marvel.png" height="64px">
+    <div class="max-width-1000-centered">
+        <div class="fs-bg-image">
+            <header>
+                <nav class="navbar-fixed">
+                    <div class="nav-wrapper red-bg-colour">
+                        <div class="brand-logo center">
+                            <img src="./assets/images/index/logo-marvel.png" alt="Logo" height="64">
+                        </div>
+
+                        <a href="#top" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">home</i></a>
+
                     </div>
-                </div>
-            </nav>
-            <div class="search-container-css">
-                <div class="row width-offset-10">
+                </nav>
+                <div class="row search-container-css">
                     <form id="charForm" onsubmit="getCharacter();return false">
-                        <div class="input-field col s10">
+                        <div class="input-field col s8 offset-s1">
                             <label for="charName"></label>
                             <input type="text" id="charName" class="autocomplete" placeholder="Type a name (e.g. Beast)..." required>
                         </div>
-                        <div class="search-button col s1">
-                            <button class="btn waves-effect waves-light red-bg-colour" type="submit" name="action">
-                        <i class="material-icons center">search</i>
-                    </button>
+                        <div class="search-button col s2">
+                            <button class="btn-flat waves-effect waves-light red-bg-colour" type="submit" name="action">
+                                <i class="material-icons center">search</i>
+                            </button>
                         </div>
                     </form>
                 </div>
-            </div>
-        </header>
-    </div>
-    <main class=fs-bg-image>
-        <div id="charID" class="hide"></div>
-        <div class="container-fluid">
-            <div id="welcomeMessage" class="width-offset-10">
-                <ul class="collapsible">
-                    <li class="active">
-                        <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-handshake"></i><span>Welcome</span></div>
-                        <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
-                            <span>
-                                <div class="divider red-bg-colour"></div>
-                                  This site lets you search for (your favourite) Marvel characters, 
-                                  and gets information for them from <a class="red-txt-colour" href="http://marvel.com" target="_blank"><b>Marvel</b></a>'s database.<br>
-                                  You will be able to see which comics the characters were in, which series and which events they were a part of.
-                                <div class="divider red-bg-colour"></div>
-                                  This site was made to familiarise myself with obtaining data from an external source, 
-                                  and then presenting it in a readable fashion. Having grown up on Marvel comics, the choice was obvious!<br>
-                                  In all, there are 1491 entries for you to explore... Who'd have thought!<br>
-                                  The auto-completion will help find you a character you never heard of before today! 
-                                <div class="divider red-bg-colour"></div>
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-highlighter"></i><span>Things to note</span></div>
-                        <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
-                            <span>
-                                <div class="divider red-bg-colour"></div>
-                                  Searches can take some time (looking at you Spider-Man!), as all data is retrieved from the Marvel database.<br>
-                                  I have made sure the overall wait is limited however. But do keep in mind, some searches are more extensive.
-                                <div class="divider red-bg-colour"></div>
-                                  <p class="red-txt-colour"><b>Please note that this site will work smoothest on tablets and screens up to 1280 pixels wide.</b></p>
-                                  For the moment, the results returned per character are limited to the comics and series they were in during 2018, 
-                                  to ensure that results are returned in a timely manner.<br>In time, functionality will be added to select a specific 
-                                  year along with a character.
-                                <div class="divider red-bg-colour"></div>
-                                  Indicators show whether or not the content can be viewed. Unavailable content will be visibly disabled.
-                                  Since data is retrieved dynamically, I have opted to get the character, comics, series and events in separate
-                                  searches, to not have you wait too long in some cases.
-                                <div class="divider red-bg-colour"></div>
-                                  Any of the images retrieved can be clicked, to zoom in for a detailed view.
-                                  In a collection of images like those in the list of comics, next and previous items can be selected.
-                                <div class="divider red-bg-colour"></div>
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-award"></i><span>Credits where due</span></div>
-                        <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
-                            <span>
-                                <div class="divider red-bg-colour"></div>
-                                  Many thanks go to the makers of the <a class="red-txt-colour" href="https://developer.marvel.com" target="_blank"><b>Marvel API</b></a> 
-                                  for making it possible for comics fans to get to everything Marvel!<br>
-                                  Keep up the great work, like me, many really appreciate the Marvel Universe opening up to us!
-                                <div class="divider red-bg-colour"></div>
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="top" class="row trim-bottom-margin">
-            <div id="characterImage" class="remove-padding col s5 m4 l3"></div>
-            <div id="characterName" class="remove-padding center col s7 m8 l9"></div>
-        </div>
-        <div class="row">
-            <div id="characterDescription" class="col s12"></div>
-        </div>
-        <div class="row width-offset-10 hidee">
-            <ul class="collapsible">
-                <li>
-                    <div id="comicsListHeader" class="hide collapsible-header red-bg-colour">Comics</div>
-                    <div id="comicsList" class="hide collapsible-body silver-dark-bg-colour"></div>
-                </li>
-                <li>
-                    <div id="seriesListHeader" class="hide collapsible-header red-bg-colour">Series</div>
-                    <div id="seriesList" class="hide collapsible-body silver-dark-bg-colour"></div>
-                </li>
-                <li>
-                    <div id="eventsListHeader" class="hide collapsible-header red-bg-colour">Events</div>
-                    <div id="eventsList" class="hide collapsible-body silver-dark-bg-colour"></div>
-                </li>
-            </ul>
-        </div>
-        <div class="fixed-action-btn">
-            <a href="#top" class="btn-floating red-bg-colour">
-                <i class="large material-icons">home</i>
-            </a>
-        </div>
-    </main>
+            </header>
 
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <h4>All characters for event xxx</h4>
-            <p>Where images, names and descriptions shall live</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis fermentum tincidunt. Morbi porttitor, ex in egestas mattis, nibh purus ultrices turpis, ultricies laoreet ex augue nec purus. Fusce sollicitudin dolor sit amet luctus convallis.
-                Donec et viverra ipsum, sed ornare lorem. Vivamus ac accumsan neque, quis malesuada risus. Ut interdum vel leo vitae egestas. Ut efficitur quam ligula, ut sagittis diam aliquam in. Cras aliquet justo et dui ultrices, id eleifend lectus
-                pulvinar. Vivamus tincidunt tincidunt magna vitae sagittis. Sed ac mauris turpis. Integer rutrum congue fringilla. Vivamus eu leo ut sapien varius placerat vel sed erat. Nulla facilisi. Nullam ullamcorper sapien a velit dapibus convallis.
-                Etiam viverra, urna quis mattis mattis, ante diam egestas tortor, sollicitudin ultricies magna velit nec nulla. In hac habitasse platea dictumst. Cras sed lacus quam. Suspendisse tincidunt est ante, eu luctus arcu interdum elementum. Nunc
-                a rutrum nunc, eu aliquam sem. Integer accumsan nisi ac ipsum auctor, id commodo ipsum venenatis. Vivamus nisl massa, molestie vitae commodo eget, volutpat quis sapien. Phasellus at leo eu lorem tempus condimentum faucibus sed est. Phasellus
-                id ante mi. Proin vel commodo erat, vitae semper metus. Quisque diam purus, suscipit ut nibh sit amet, molestie faucibus mi. Phasellus egestas lectus quis luctus gravida. Donec id nisl vitae dui euismod molestie ut eu neque. Aliquam lacinia
-                eget ligula a interdum. Sed maximus nulla velit, id lobortis mauris hendrerit eu. Nulla non molestie ante, in placerat nisi. Quisque non risus dolor. Donec dapibus libero mi, id fringilla enim varius at. In nisl sapien, porttitor ac ultricies
-                lacinia, laoreet non urna. Curabitur ullamcorper, urna a volutpat pretium, massa sapien congue ante, eget venenatis ante leo ut purus. Proin nec gravida ex, at euismod tellus. Nullam eu lacus sed elit venenatis euismod. Fusce libero ante,
-                varius quis nulla vitae, gravida auctor quam. Duis at nulla et velit porttitor tristique. Sed dui arcu, commodo ac felis at, sagittis sagittis sem. Suspendisse tellus ante, fringilla cursus vulputate eu, ultricies at quam. Nam finibus
-                mauris vel ex auctor, ac viverra mi posuere. Sed a ligula tempus, dictum mauris ac, condimentum ante. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam efficitur, erat ac sollicitudin suscipit,
-                mi nisi venenatis mi, id maximus mi augue id felis. Donec accumsan faucibus tellus, in ornare dolor pulvinar vitae. Maecenas in orci quis ex laoreet tristique. Sed maximus ullamcorper magna id lacinia. Suspendisse vulputate est quis interdum
-                auctor. Vivamus sem est, tincidunt sed libero accumsan, fringilla lobortis lectus. Aliquam erat urna, aliquet quis purus eu, mattis sollicitudin sapien. Morbi bibendum dapibus venenatis. Nulla et auctor tellus. Etiam malesuada dui turpis,
-                ac ullamcorper arcu porttitor non. Proin vehicula elit lectus, ut suscipit neque iaculis lobortis. Sed auctor ut velit in cursus. Suspendisse ac iaculis leo, at gravida risus. In pretium, tortor sed pellentesque efficitur, nulla massa
-                cursus enim, nec blandit elit odio quis lectus. Suspendisse enim sapien, tincidunt ac maximus quis, volutpat a leo. Aenean ante massa, imperdiet vitae viverra gravida, venenatis vitae leo. Nulla cursus diam eu dolor feugiat, sit amet egestas
-                leo accumsan. Aliquam tristique ac ligula ac rutrum. Fusce magna felis, imperdiet ut pharetra quis, dignissim at enim. Vivamus porttitor nulla mauris, et venenatis diam iaculis aliquam. Vestibulum maximus varius enim, ut pretium tortor
-                dictum vel. Sed convallis eros turpis, non pulvinar neque bibendum nec. Sed mattis id elit nec laoreet.</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="fas fa-window-close red-txt-colour"></i></a>
-        </div>
-        <div id="modal-block-fade" style="display: none"></div>
-        <div id="modal-block-spinner" style="display: none"><img src="./assets/images/pre-loaders/result-page.gif" alt="Loading..." /></div>
+            <main>
+                <div id="top" class="behind-logo-and-search">
+                    <!--  Sole purpose to provide a home location behind fixed header  -->
+                </div>
+                
+                <div id="welcomeMessage" class="width-offset-5">
+                    <ul class="collapsible">
+                        <li class="active">
+                            <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
+                                <div class="divider red-bg-colour"></div>
+                                <p class="red-txt-colour"><b>This site will work better on tablets and screens up to 1280 pixels wide.</b></p>
 
+                                There are currently some limitations to the results returned. See the notes below for more information.
+                                <div class="divider red-bg-colour"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-question-circle"></i><span>About</span></div>
+                            <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
+                                <div class="divider red-bg-colour"></div>
+                                This site lets you search for (your favourite) Marvel characters, and gets information for them from <a class="red-txt-colour" href="http://marvel.com" target="_blank"><b>Marvel</b></a>'s database.<br> You will be able
+                                to see which comics the characters were in, which series and which events they were a part of.
+                                <div class="divider red-bg-colour"></div>
+                                This site was made to familiarise myself with obtaining data from an external source, and then presenting it in a readable fashion. Having grown up on Marvel comics, the choice was obvious!<br> In all, there are 1491 entries
+                                for you to explore... Who'd have thought!<br> The auto-completion will help find you a character you never heard of before today!
+                                <div class="divider red-bg-colour"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-exclamation-circle"></i><span>Notes</span></div>
+                            <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
+                                <div class="divider red-bg-colour"></div>
+                                Searches can take some time (looking at you Spider-Man!), as all data is retrieved from the Marvel database.<br> I have made sure the overall wait is limited however. But do keep in mind, some searches are more extensive.
+                                <div class="divider red-bg-colour"></div>
+                                For the moment, the results returned per character are limited to the comics and series they were in during 2018, to ensure that results are returned in a timely manner.<br>In time, functionality will be added to select
+                                a specific year along with a character.
+                                <div class="divider red-bg-colour"></div>
+                                Indicators show whether or not the content can be viewed. Unavailable content will be visibly disabled. Since data is retrieved dynamically, I have opted to get the character, comics, series and events in separate searches, to not have you wait too long
+                                in some cases.
+                                <div class="divider red-bg-colour"></div>
+                                Any of the images retrieved can be clicked, to zoom in for a detailed view. In a collection of images like those in the list of comics, next and previous items can be selected.
+                                <div class="divider red-bg-colour"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-grin"></i><span>Credits</span></div>
+                            <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
+                                <div class="divider red-bg-colour"></div>
+                                Many thanks go to the makers of the <a class="red-txt-colour" href="https://developer.marvel.com" target="_blank"><b>Marvel API</b></a> for making it possible for comics fans to get to everything Marvel!<br> Keep up the
+                                great work, like me, many really appreciate the Marvel Universe opening up to us!
+                                <div class="divider red-bg-colour"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="row trim-bottom-margin">
+                    <div id="characterImage" class="remove-padding col s3"></div>
+                    <div id="characterName" class="remove-padding valign-wrapper center-align col s9"></div>
+                    <div id="characterDescription" class="remove-padding center col s12"></div>
+                </div>
+
+                <div class="width-offset-5">
+                    <ul class="collapsible">
+                        <li>
+                            <div id="comicsListHeader" class="hide collapsible-header red-bg-colour">Comics</div>
+                            <div id="comicsList" class="hide collapsible-body silver-dark-bg-colour"></div>
+                        </li>
+                        <li>
+                            <div id="seriesListHeader" class="hide collapsible-header red-bg-colour">Series</div>
+                            <div id="seriesList" class="hide collapsible-body silver-dark-bg-colour"></div>
+                        </li>
+                        <li>
+                            <div id="eventsListHeader" onclick="toggleVisibility('#eventsList-fail-margin')" class="hide collapsible-header red-bg-colour">Events</div>
+                            <div id="eventsList" class="hide collapsible-body silver-dark-bg-colour extra-bottom-margin"></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="eventsList-fail-margin" class="extra-bottom-margin"></div>
+                <!--    <div class="fixed-action-btn">-->
+                <!--        <a href="#top" class="btn-floating red-bg-colour">-->
+                <!--    <i class="large material-icons">home</i>-->
+                <!--</a>-->
+                <!--</div>-->
+            </main>
+
+            <footer class="red-bg-colour center">
+                <a class="Fjalla red-bg-colour" href="http://marvel.com" target="_blank">Data provided by Marvel. © 2018 MARVEL</a>
+            </footer>
+
+        </div>
     </div>
 
-    <div class="container-fluid footer-fixed">
-        <footer class="red-bg-colour center">
-            <a class="Fjalla red-bg-colour" href="http://marvel.com" target="_blank">Data provided by Marvel. © 2018 MARVEL</a>
-        </footer>
-    </div>
     <div id="screen-block-fade" style="display: none"></div>
     <div id="screen-block-spinner" style="display: none"><img src="./assets/images/pre-loaders/result-page.gif" alt="Loading..." /></div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script type="text/javascript" src="./assets/js/lightbox.min.js"></script>
-    <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script src="./assets/js/lightbox.min.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>
