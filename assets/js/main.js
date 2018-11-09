@@ -2,7 +2,7 @@
 const APIKEY = '?apikey=caed232232648c6736c78c39d5280237';
 
 $(document).ready(function() {
-    // due to large list of characters, populate from external
+    // large list of characters, populate autocomplete with separate script
     $.getScript('./characters.js');
     $('.collapsible').collapsible();
 });
