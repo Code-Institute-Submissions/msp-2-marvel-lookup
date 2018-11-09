@@ -1,3 +1,9 @@
+/* global $ */
+
+/* Because the possible list of characters spans 1491 entries,
+this external file made to host the list for autocompletion.
+It is imported into main.js on page load. */
+
 $('input.autocomplete').autocomplete({
     data: {
         "3-D Man": 'https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_medium.jpg',

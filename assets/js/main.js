@@ -53,8 +53,11 @@ function getCharacter() {
                     splitNameForwardSlash = splitNameParenthesis[0].split('/'),
                     shortName = splitNameForwardSlash[0],
                     descriptionLen = resp[0].description.length;
-                $('#characterName').html(`<div class="center">${shortName}</div>`);
-
+                $('#characterName').html(`<div class="card silver-light-bg-colour characterName-card add-transparency">
+                <div class="card-content force"><span class="card-title Fjalla red-txt-colour">${shortName}</span>
+                <div class="card-action hide-on-small-only bottom-dweller"><table><tr><th>Comics</th><th>Series</th>
+                <th>Events</th></tr><tr><td>${resp[0].comics.available}</td><td>${resp[0].series.available}</td>
+                <td>${resp[0].events.available}</td></tr></table></div></div></div>`);
                 if (descriptionLen == 0) {
                     $('#characterDescription').html(`<div class="width-offset-10"><div class="card drop-card-margin"><div class="card-action red-bg-colour">
                     <a class="red-bg-colour Fjalla" href="${resp[0].urls[0].url}" target="_blank">Bio@Marvel.com</a></div></div></div>`);
@@ -118,7 +121,7 @@ function getComicsSeriesEvents(type, charID) {
             output = '';
             if (type == 'comics') {
                 if (respLen == 0) {
-                    $('#comicsListHeader').html(`<span>No Comics Found</span>`).animate({ opacity: 0.85 }, 1000);
+                    $('#comicsListHeader').html(`<span>No 2018 Comics Found</span>`).animate({ opacity: 0.85 }, 1000);
                 }
                 else {
                     $('#comicsListHeader').html(`<span>Comics List 2018</span>`);
@@ -139,7 +142,7 @@ function getComicsSeriesEvents(type, charID) {
             }
             if (type == 'series') {
                 if (respLen == 0) {
-                    $('#seriesListHeader').html(`<span>No Series Found</span>`).animate({ opacity: 0.85 }, 1000);
+                    $('#seriesListHeader').html(`<span>No 2018 Series Found</span>`).animate({ opacity: 0.85 }, 1000);
                 }
                 else {
                     $('#seriesListHeader').html(`<span>Series List 2018</span>`);
