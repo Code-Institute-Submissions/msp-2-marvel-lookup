@@ -1,9 +1,10 @@
+/* global $ */
 const APIKEY = '?apikey=caed232232648c6736c78c39d5280237';
 
 $(document).ready(function() {
-    $.getScript('/assets/js/characters.js') // populate autocomplete with external script
+    // due to large list of characters, populate from external
+    $.getScript('/assets/js/characters.js');
     $('.collapsible').collapsible();
-    $('.fixed-action-btn').floatingActionButton();
 });
 
 function toggleVisibility(id) {
@@ -11,16 +12,18 @@ function toggleVisibility(id) {
 }
 
 function screenBlock(type) {
+    // Block the screen while initial searches take place
     if (type == 'on') {
         $(`#screen-block-spinner, #screen-block-fade`).css('display', 'block');
     }
+    // Release the screen back to the user
     if ((type == 'off')) {
         $(`#screen-block-spinner, #screen-block-fade`).css('display', 'none');
     }
 }
 
 function getCharacter() {
-    var url = 'https://gateway.marvel.com:443/v1/public/characters' + APIKEY + '&name=' + $("#charName").val();
+    var url = `https://gateway.marvel.com:443/v1/public/characters${APIKEY}&name=${$("#charName").val()}`;
     screenBlock('on');
     $.ajax(url, {
             type: 'GET',
@@ -39,27 +42,29 @@ function getCharacter() {
                     imgSSLfront = 'https://' + imgSplitPath[1],
                     imgExtension = resp[0].thumbnail.extension;
                 if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
-                    $('#characterImage').html(`<div class="hide-on-mead-and-down"><img src="/assets/images/notfound/na-250x250.jpg" alt="Image N/A"></div>`);
+                    $('#characterImage').html(`<img src="/assets/images/notfound/na-250x250.jpg" alt="Image N/A">`);
                 }
                 else {
-                    $('#characterImage').html(`<a class="char-image-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="characterImage">
-                    <div class="char-image hide-on-mead-and-down"><img src="${imgSSLfront}/standard_fantastic.${imgExtension}" alt="${resp[0].name}"></div>`);
+                    $('#characterImage').html(`<a class="char-image-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="characterImage"data-title="${resp[0].name}">
+                    <div class="char-image"><img src="${imgSSLfront}/standard_fantastic.${imgExtension}" alt="${resp[0].name}"></div>`);
                 }
+                //Shorten excessively long character names
                 var splitNameParenthesis = resp[0].name.split(' ('),
                     splitNameForwardSlash = splitNameParenthesis[0].split('/'),
                     shortName = splitNameForwardSlash[0],
                     descriptionLen = resp[0].description.length;
-                $('#characterName').html(`${shortName}`);
+                $('#characterName').html(`<div class="center">${shortName}</div>`);
 
                 if (descriptionLen == 0) {
-                    $('#characterDescription').html(`<div class="width-offset-5"><div class="card drop-card-margin"><div class="card-action red-bg-colour">
+                    $('#characterDescription').html(`<div class="width-offset-10"><div class="card drop-card-margin"><div class="card-action red-bg-colour">
                     <a class="red-bg-colour Fjalla" href="${resp[0].urls[0].url}" target="_blank">Bio@Marvel.com</a></div></div></div>`);
                 }
                 else {
-                    $('#characterDescription').html(`<div class="width-offset-5"><div class="card drop-card-margin"><div class="card-content">
+                    $('#characterDescription').html(`<div class="width-offset-10"><div class="card drop-card-margin"><div class="card-content">
                     <p>${resp[0].description}</p></div><div class="card-action red-bg-colour">
                     <a class="red-bg-colour Fjalla" href="${resp[0].urls[1].url}" target="_blank">Bio@Marvel.com</a></div></div></div>`);
                 }
+                // Hide possible existing lists and get additional data
                 $('#comicsList, #seriesList, #eventsList').html('').addClass('hide');
                 $('#comicsListHeader, #seriesListHeader, #eventsListHeader').html(`<span>
                 <img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({ opacity: 1 }, 100).removeClass('hide');
@@ -76,13 +81,13 @@ function getComicsSeriesEvents(type, charID) {
     $("#welcomeMessage").addClass('hide');
     var url;
     if (type == 'comics') {
-        url = 'https://gateway.marvel.com:443/v1/public/characters/' + charID + '/comics' + APIKEY + '&format=comic&formatType=comic&dateRange=2018-01-01%2C%202018-12-31&orderBy=focDate&limit=100';
+        url = `https://gateway.marvel.com:443/v1/public/characters/${charID}/comics${APIKEY}&format=comic&formatType=comic&dateRange=2018-01-01%2C%202018-12-31&orderBy=focDate&limit=100`;
     }
     if (type == 'series') {
-        url = 'https://gateway.marvel.com:443/v1/public/characters/' + charID + '/series' + APIKEY + '&limit=100&startYear=2018&contains=comic&orderBy=startYear';
+        url = `https://gateway.marvel.com:443/v1/public/characters/${charID}/series${APIKEY}&limit=100&startYear=2018&contains=comic&orderBy=startYear`;
     }
     if (type == 'events') {
-        url = 'https://gateway.marvel.com:443/v1/public/events' + APIKEY + '&orderBy=startDate&limit=100&characters=' + charID;
+        url = `https://gateway.marvel.com:443/v1/public/characters/${charID}/events${APIKEY}&orderBy=startDate&limit=100`;
     }
     $.ajax(url, {
             type: 'GET',
@@ -119,6 +124,7 @@ function getComicsSeriesEvents(type, charID) {
                     $('#comicsListHeader').html(`<span>Comics List 2018</span>`);
                     output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider"><tr><td>`;
                     for (var i = 0; i < respLen; i++) {
+                        // Convert to https image links
                         imgSplitPath = resp[i].images[0].path.split('//');
                         imgSSLfront = 'https://' + imgSplitPath[1];
                         imgExtension = resp[i].images[0].extension;
@@ -142,15 +148,15 @@ function getComicsSeriesEvents(type, charID) {
                         output += `<tr><td><div class="row"><div class="col s12"><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank">
                         <i class="fas fa-external-link-square-alt"></i> ${resp[i].title}</a></div></div><div class="row trim-bottom-margin">
                         <span class="col s12">Series Characters:</span>`;
+                        // Create divs to hold character images
                         for (var j = 0; j < resp[i].characters.available; j++) {
                             var splitSeriesURI = resp[i].characters.items[j].resourceURI.split('/'),
                                 seriesCharID = splitSeriesURI[6];
-                            output += `<div id="char-${seriesCharID}-${resp[i].id}" class="col s3 seriesCharacterImage"></div>`;
+                            output += `<div id="char-${seriesCharID}-${resp[i].id}" class="col s3 l2 seriesCharacterImage"></div>`;
                         }
-
                         getAdditionalData('seriesCharacters', resp[i].characters.collectionURI);
-
                         output += `</div></td>`;
+                        // Convert to https image links
                         imgSplitPath = resp[i].thumbnail.path.split('//');
                         imgSSLfront = 'https://' + imgSplitPath[1];
                         imgExtension = resp[i].thumbnail.extension;
@@ -169,7 +175,6 @@ function getComicsSeriesEvents(type, charID) {
                 }
             }
             if (type == 'events') {
-                console.log(resp);
                 if (respLen == 0) {
                     $('#eventsListHeader').html(`<span>No Events Found</span>`).animate({ opacity: 0.85 }, 1000);
                     $('#eventsList-bottom-margin-substitute').addClass('extra-bottom-margin');
@@ -180,8 +185,9 @@ function getComicsSeriesEvents(type, charID) {
                     for (var i = 0; i < respLen; i++) {
                         output += `<tr><td><div class="col s12"><h6><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank"><i class="fas fa-external-link-square-alt">
                             </i> ${resp[i].title}</a></h6><p class="grey-txt-colour">${resp[i].description}</p></div><div id="event-button-${resp[i].id}" class="col s12 m6 offset-m3 center">
-                            <a class="btn red-bg-colour loader-padding"><img src="./assets/images/pre-loaders/result-bar.gif"></a>
+                            <a class="btn red-bg-colour loader-padding"><img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></a>
                             </div></td></tr><tr id="eventCharacters${resp[i].id}" class="toggle-target"><td>`;
+                        // Create divs to hold character images    
                         for (var j = 0; j < resp[i].characters.available; j++) {
                             var splitEventURI = resp[i].characters.collectionURI.split('/'),
                                 eventCharID = splitEventURI[6];
@@ -191,7 +197,6 @@ function getComicsSeriesEvents(type, charID) {
                     }
                     $('#eventsList').html(`${output}<tr><td><a class="red-txt-colour Fjalla" href="http://marvel.com">
                     © 2018 MARVEL</a></td></tr></table></div>`).removeClass('hide');
-
                 }
             }
         });
@@ -199,17 +204,18 @@ function getComicsSeriesEvents(type, charID) {
 }
 
 function getAdditionalData(type, resourceURI) {
+    // Turn URL into https and grab unique identifiers
     var urlSplit = resourceURI.split('//'),
-        urlSecure = `https://` + urlSplit[1],
+        urlSecure = `https://${urlSplit[1]}`,
         splitForID = urlSplit[1].split('/'),
         seriesID, eventsID, url;
     if (type == 'seriesCharacters') {
         seriesID = splitForID[4];
-        url = urlSecure + APIKEY + '&orderBy=name&limit=100';
+        url = `${urlSecure}${APIKEY}&orderBy=name&limit=100`;
     }
     if (type == 'eventCharacters') {
         eventsID = splitForID[4];
-        url = urlSecure + APIKEY + '&orderBy=name&limit=100';
+        url = `${urlSecure}${APIKEY}&orderBy=name&limit=100`;
     }
     $.ajax(url, {
             type: 'GET',
@@ -220,10 +226,7 @@ function getAdditionalData(type, resourceURI) {
             var respLen = resp.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
             if (type == 'seriesCharacters') {
-                if (respLen == 0) {
-                    console.log('Somehow no returned data for series: ', seriesID);
-                }
-                else {
+                if (respLen != 0) {
                     for (var i = 0; i < respLen; i++) {
                         output = '';
                         imgSplitPath = resp[i].thumbnail.path.split('//');
@@ -245,10 +248,7 @@ function getAdditionalData(type, resourceURI) {
                 }
             }
             if (type == 'eventCharacters') {
-                if (respLen == 0) {
-                    console.log('Somehow no returned data for event: ', eventsID);
-                }
-                else {
+                if (respLen != 0) {
                     for (var i = 0; i < respLen; i++) {
                         output = '';
                         imgSplitPath = resp[i].thumbnail.path.split('//');
@@ -267,8 +267,8 @@ function getAdditionalData(type, resourceURI) {
                             $(`#char-${eventsID}-${i}`).html(`${output}`);
                         }
                         $(`#event-button-${eventsID}`).html(`<a class="btn red-bg-colour Fjalla center" 
-                    onclick="toggleVisibility('#eventCharacters${eventsID}','#arrows-event-button-${eventsID}')">
-                    Characters for this event&nbsp;&nbsp;&nbsp;<i class="far fa-plus-square"></i></a>`);
+                        onclick="toggleVisibility('#eventCharacters${eventsID}','#arrows-event-button-${eventsID}')">
+                        Characters for this event&nbsp;&nbsp;&nbsp;<i class="far fa-plus-square"></i></a>`);
                     }
                 }
             }
