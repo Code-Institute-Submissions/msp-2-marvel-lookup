@@ -113,9 +113,6 @@ function getComicsSeriesEvents(type, charID) {
         })
         .done(function(resp) {
             screenBlock('off');
-            
-            console.log(type,resp);
-
             resp = resp.data.results;
             var respLen = resp.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
