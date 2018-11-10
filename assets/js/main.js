@@ -31,7 +31,6 @@ function getCharacter() {
         })
         .done(function(resp) {
             resp = resp.data.results;
-            console.log(resp);
             var respLen = resp.length;
             if (respLen == 0) {
                 screenBlock('off');
@@ -109,12 +108,14 @@ function getComicsSeriesEvents(type, charID) {
                     $('#eventsList').addClass('hide');
                     $('#eventsList-fail-margin').addClass('extra-bottom-margin');
                 }
-                console.log(xhr.status);
                 return;
             }
         })
         .done(function(resp) {
             screenBlock('off');
+            
+            console.log(type,resp);
+
             resp = resp.data.results;
             var respLen = resp.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
