@@ -90,6 +90,83 @@ footer {
     border-top: 2px solid #FEFEFE;
 }
 
+/* Materialize Overrides */ 
+
+.card {
+    background-color: #FEFEFE;
+    border: 1px solid #EC1D24;
+    text-align: center;
+}
+
+.card .card-content {
+    padding: 8px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating),
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
+    color: #FEFEFE;
+    margin-right: 0;
+    text-align: center;
+}
+
+.collapsible {
+    border-top: 0;
+}
+
+.collapsible-header span {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Fjalla One', sans-serif;
+    font-weight: 400;
+}
+
+.collapsible-header i {
+    margin-right: -2rem;
+}
+
+.collapsible-body {
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.collapsible-body img {
+    border-radius: 5%;
+}
+
+.collapsible-body tr {
+    border-bottom: 0;
+}
+
+.collapsible-body td {
+    vertical-align: top;
+}
+
+.pagination li a {
+    color: #444;
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0 4px;
+    line-height: 2rem;
+}
+
+.divider {
+    background-color: #e0e0e0;
+    margin: 3px 0;
+}
+
+/* Materialize Media query navbar override */
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo {
+        left: 0;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
 /* Header - Nav */
 
 .nav-row-no-margin-bottom {
@@ -325,82 +402,7 @@ div.card-content.force {
     border-bottom: 0;
 }
 
-/* Materialize Overrides */ 
 
-.card {
-    background-color: #FEFEFE;
-    border: 1px solid #EC1D24;
-    text-align: center;
-}
-
-.card .card-content {
-    padding: 8px;
-    font-family: 'Lato', sans-serif;
-    letter-spacing: 1px;
-}
-
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating),
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
-    color: #FEFEFE;
-    margin-right: 0;
-    text-align: center;
-}
-
-.collapsible {
-    border-top: 0;
-}
-
-.collapsible-header span {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Fjalla One', sans-serif;
-    font-weight: 400;
-}
-
-.collapsible-header i {
-    margin-right: -2rem;
-}
-
-.collapsible-body {
-    padding: 0.5rem;
-    text-align: center;
-}
-
-.collapsible-body img {
-    border-radius: 5%;
-}
-
-.collapsible-body tr {
-    border-bottom: 0;
-}
-
-.collapsible-body td {
-    vertical-align: top;
-}
-
-.pagination li a {
-    color: #444;
-    display: inline-block;
-    font-size: 1rem;
-    padding: 0 4px;
-    line-height: 2rem;
-}
-
-.divider {
-    background-color: #e0e0e0;
-    margin: 3px 0;
-}
-
-/* Materialize Media query navbar override */
-
-@media only screen and (max-width: 992px) {
-    nav .brand-logo {
-        left: 0;
-        -webkit-transform: none;
-        transform: none;
-    }
-}
 
 /* Lightbox */
 
