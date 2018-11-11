@@ -30,7 +30,6 @@ function getCharacter() {
             dataType: 'json'
         })
         .done(function(character) {
-            // resp = resp.data.results;
             var respLen = character.data.results.length;
             if (respLen == 0) {
                 screenBlock('off');
@@ -47,6 +46,7 @@ function getCharacter() {
                     $('#characterImage').html(`<a class="char-image-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="characterImage"data-title="${character.data.results[0].name}">
                     <div class="char-image"><img src="${imgSSLfront}/standard_fantastic.${imgExtension}" alt="${character.data.results[0].name}"></div>`);
                 }
+                $('#attributionText').html(character.attributionText);
                 //Shorten excessively long character names
                 var splitNameParenthesis = character.data.results[0].name.split(' ('),
                     splitNameForwardSlash = splitNameParenthesis[0].split('/'),
@@ -71,7 +71,7 @@ function getCharacter() {
                 $('#comicsListHeader, #seriesListHeader, #eventsListHeader').html(`<span>
                 <img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({ opacity: 1 }, 100).removeClass('hide');
                 getComics(character.data.results[0].comics.collectionURI, 0);
-                getComicsSeriesEvents('series', character.data.results[0].series.collectionURI, 0);
+                getSeries(character.data.results[0].series.collectionURI, 0);
                 getComicsSeriesEvents('events', character.data.results[0].events.collectionURI, 0);
             }
         });
@@ -84,7 +84,6 @@ function getComics(rawURL, offset) {
     screenBlock('on');
     var splitURL = rawURL.split('//');
     var url = `https://${splitURL[1]}${APIKEY}&offset=${offset}&limit=24`;
-    console.log('Offset = : ',offset)
     var nextOffset = parseInt(offset) + 24;
     var prevOffset = parseInt(offset) - 24;
     $.ajax(url, {
@@ -97,24 +96,23 @@ function getComics(rawURL, offset) {
             }
         })
         .done(function(comics) {
-            console.log('comics: ', comics)
             screenBlock('off');
             var respLen = comics.data.results.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
             output = '';
             if (respLen == 0) {
-                $('#comicsListHeader').html(`<span>No 2018 Comics Found</span>`).animate({ opacity: 0.85 }, 1000);
+                $('#comicsListHeader').html(`<span>No Comics Found</span>`).animate({ opacity: 0.85 }, 1000);
             }
             else {
+                var activePage = (offset + 24) / 24;
                 var comicsPagination = function() {
                     var firstOffset = 0,
                         paginationRoundUp = 0,
-                        activePage = (offset + 24) / 24,
                         page,
                         pagesTotal;
                     var pageLinks = ``;
                     pageLinks += `<center><ul class="pagination"><li id="comics-chevron-left" class="waves-effect"><a onclick="getComics('${rawURL}',${prevOffset})"><i class="material-icons">chevron_left</i></a></li>
-                            <li id="page-1" class="page-1 waves-effect"><a onclick="getComics('${rawURL}',${firstOffset})">1</a></li>`;
+                            <li id="page-1" class="comics-page-1 waves-effect"><a onclick="getComics('${rawURL}',${firstOffset})">1</a></li>`;
                     if (comics.data.total % 24 != 0) {
                         paginationRoundUp = 24 - (comics.data.total % 24);
                     }
@@ -125,13 +123,13 @@ function getComics(rawURL, offset) {
                         }
                         for (page = activePage - 1; page < activePage + 2; page++) {
                             if (page > 1 && page < pagesTotal) {
-                                pageLinks += `<li id="page-${page}" class="page-${page} waves-effect"><a onclick="getComics('${rawURL}',${(page * 24) - 24})">${page}</a></li>`;
+                                pageLinks += `<li id="page-${page}" class="comics-page-${page} waves-effect"><a onclick="getComics('${rawURL}',${(page * 24) - 24})">${page}</a></li>`;
                             }
                         }
                         if (activePage < pagesTotal - 2) {
                             pageLinks += ` ... `;
                         }
-                        pageLinks += `<li id="page-${pagesTotal}" class="page-${pagesTotal} waves-effect"><a onclick="getComics('${rawURL}',${(pagesTotal * 24) - 24})">${pagesTotal}</a></li>`;
+                        pageLinks += `<li id="page-${pagesTotal}" class="comics-page-${pagesTotal} waves-effect"><a onclick="getComics('${rawURL}',${(pagesTotal * 24) - 24})">${pagesTotal}</a></li>`;
                     }
                     pageLinks += `<li id="comics-chevron-right" class="waves-effect"><a onclick="getComics('${rawURL}',${nextOffset})"><i class="material-icons">chevron_right</i></a></li>
                           </ul></center>`;
@@ -144,16 +142,133 @@ function getComics(rawURL, offset) {
                     imgSplitPath = comics.data.results[i].thumbnail.path.split('//');
                     imgSSLfront = 'https://' + imgSplitPath[1];
                     imgExtension = comics.data.results[i].thumbnail.extension;
-                    output += `<div class="col s6 m3 l2 center">
-                                    <a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="ComicImages" data-title="${comics.data.results[i].title}">
-                                    <div class="imageCoversSize"><img class="imageCovers" src="${imgSSLfront}/portrait_medium.${imgExtension}" alt="${comics.data.results[i].title}"></div></a></div>`;
+                    output += `<div class="col s6 m3 l2 center"><a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" 
+                                data-lightbox="ComicImages" data-title="${comics.data.results[i].title}"><div class="imageCoversSize">
+                                <img class="imageCovers" src="${imgSSLfront}/portrait_medium.${imgExtension}" 
+                                alt="${comics.data.results[i].title}"></div></a></div>`;
                 }
-                output += `</td></tr><tr><td>${comicsPagination()}</td></tr><tr><td><a class="red-txt-colour Lato" href="http://marvel.com">
-                    © 2018 MARVEL</a></td></tr></table></div>`;
+                output += `</td></tr><tr><td>${comicsPagination()}</td></tr><tr><td><a class="red-txt-colour Lato" 
+                            href="http://marvel.com">© 2018 MARVEL</a></td></tr></table></div>`;
                 $('#comicsList').html(`${output}`).removeClass('hide');
+                if (prevOffset < 0 && comics.data.total > nextOffset) {
+                    $('#comics-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
+                }
+                if (prevOffset >= 0 && comics.data.total - nextOffset <= 0) {
+                    $('#comics-chevron-right').html(`<a><i class="material-icons">chevron_right</i></a>`);
+                }
+                if (prevOffset < 0 && comics.data.total < nextOffset) {
+                    $('#comics-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
+                    $('#comics-chevron-right').html(`<a><i class="material-icons">chevron_right</i></a>`);
+                }
+                $(`.comics-page-${activePage}`).addClass('active red-bg-colour');
             }
         });
 }
+
+function getSeries(rawURL, offset) {
+    $("#welcomeMessage").addClass('hide');
+    screenBlock('on');
+    var splitURL = rawURL.split('//');
+    var url = `https://${splitURL[1]}${APIKEY}&offset=${offset}&limit=10`;
+    console.log('Offset = : ', offset)
+    var nextOffset = parseInt(offset) + 10;
+    var prevOffset = parseInt(offset) - 10;
+    $.ajax(url, {
+            type: 'GET',
+            dataType: 'json',
+            error: function() {
+                $('#seriesListHeader').html(`<span>Server Error. Please Search again.</span>`).animate({ opacity: 0.85 }, 1000);
+                $('#seriesList').addClass('hide');
+                return;
+            }
+        })
+        .done(function(series) {
+            console.log('series: ', series)
+            screenBlock('off');
+            var respLen = series.data.results.length,
+                imgSplitPath, imgSSLfront, imgExtension, output;
+            output = '';
+            if (respLen == 0) {
+                $('#seriesListHeader').html(`<span>No Series Found</span>`).animate({ opacity: 0.85 }, 1000);
+            }
+            else {
+                var activePage = (offset + 10) / 10;
+                var seriesPagination = function() {
+                    var firstOffset = 0,
+                        paginationRoundUp = 0,
+                        page,
+                        pagesTotal;
+                    var pageLinks = ``;
+                    pageLinks += `<center><ul class="pagination"><li id="series-chevron-left" class="waves-effect"><a onclick="getComics('${rawURL}',${prevOffset})"><i class="material-icons">chevron_left</i></a></li>
+                            <li id="page-1" class="series-page-1 waves-effect"><a onclick="getSeries('${rawURL}',${firstOffset})">1</a></li>`;
+                    if (series.data.total % 10 != 0) {
+                        paginationRoundUp = 10 - (series.data.total % 10);
+                    }
+                    pagesTotal = (series.data.total + paginationRoundUp) / 10;
+                    if (pagesTotal > 1) {
+                        if (activePage > 3) {
+                            pageLinks += ` ... `;
+                        }
+                        for (page = activePage - 1; page < activePage + 2; page++) {
+                            if (page > 1 && page < pagesTotal) {
+                                pageLinks += `<li id="page-${page}" class="series-page-${page} waves-effect"><a onclick="getSeries('${rawURL}',${(page * 10) - 10})">${page}</a></li>`;
+                            }
+                        }
+                        if (activePage < pagesTotal - 2) {
+                            pageLinks += ` ... `;
+                        }
+                        pageLinks += `<li id="page-${pagesTotal}" class="series-page-${pagesTotal} waves-effect"><a onclick="getSeries('${rawURL}',${(pagesTotal * 10) - 10})">${pagesTotal}</a></li>`;
+                    }
+                    pageLinks += `<li id="series-chevron-right" class="waves-effect"><a onclick="getSeries('${rawURL}',${nextOffset})"><i class="material-icons">chevron_right</i></a></li>
+                          </ul></center>`;
+                    return pageLinks;
+                };
+                $('#seriesListHeader').html(`<span>Series List</span>`);
+
+                output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider"><tr class="row"><td class="col s12">${seriesPagination()}</td></tr>`;
+                for (var i = 0; i < respLen; i++) {
+                    var seriesDescription = function() {
+                        var result;
+                        if (series.data.results[i].description == null) {
+                            result = `No description available...`;
+                        } else {
+                            result = series.data.results[i].description;
+                        }
+                        return result;
+                    };
+                    output += `<tr class="row"><td class="col s12"><div class="col s12 m9">><a class="red-txt-colour Lato" href="${series.data.results[i].urls[0].url}" target="_blank">
+                        <i class="fas fa-external-link-square-alt"></i> ${series.data.results[i].title}</a><p><span class="col s12">${seriesDescription()}</span><p></div>`;
+                    // Convert to https image links
+                    imgSplitPath = series.data.results[i].thumbnail.path.split('//');
+                    imgSSLfront = 'https://' + imgSplitPath[1];
+                    imgExtension = series.data.results[i].thumbnail.extension;
+                    if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
+                        output += `<div class="col m3 hide-on-small-only"><img class="imageMissing hide-on-small-only center" src="./assets/images/notfound/na-140x140.jpg"></a></div></td></tr>`;
+                    }
+                    else {
+                        output += `<div class="col m3 hide-on-small-only"><a class="imageSeries-link center" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="SeriesImages" 
+                            data-title="${series.data.results[i].title}"><img class="imageSeries hide-on-small-only" src="${imgSSLfront}/standard_large.${imgExtension}" 
+                            alt="${series.data.results[i].title}"></a></div></td></tr>`;
+                    }
+                }
+                $('#seriesList').html(`${output}<tr class="row"><td class="col s12">${seriesPagination()}</td></tr><tr class="row"><td class="col s12"><a class="red-txt-colour Fjalla" href="http://marvel.com">
+                    ${series.copyright}</a></td></tr></table></div>`).removeClass('hide');
+
+                if (prevOffset < 0 && series.data.total > nextOffset) {
+                    $('#series-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
+                }
+                if (prevOffset >= 0 && series.data.total - nextOffset <= 0) {
+                    $('#series-chevron-right').html(`<a><i class="material-icons">chevron_right</i></a>`);
+                }
+                if (prevOffset < 0 && series.data.total < nextOffset) {
+                    $('#series-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
+                    $('#series-chevron-right').html(`<a><i class="material-icons">chevron_right</i></a>`);
+                }
+                $(`.series-page-${activePage}`).addClass('active red-bg-colour');
+            }
+        });
+}
+
 
 function getComicsSeriesEvents(type, rawURL, offset) {
     $("#welcomeMessage").addClass('hide');
@@ -165,10 +280,6 @@ function getComicsSeriesEvents(type, rawURL, offset) {
             type: 'GET',
             dataType: 'json',
             error: function(xhr) {
-                if (type == 'series') {
-                    $('#seriesListHeader').html(`<span>Server Error. Please Search again.</span>`).animate({ opacity: 0.85 }, 1000);
-                    $('#seriesList').addClass('hide');
-                }
                 if (type == 'events') {
                     $('#eventsListHeader').html(`<span>Server Error. Please Search again.</span>`).animate({ opacity: 0.85 }, 1000);
                     $('#eventsList').addClass('hide');
@@ -182,46 +293,6 @@ function getComicsSeriesEvents(type, rawURL, offset) {
             var respLen = resp.data.results.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
             output = '';
-            if (type == 'series') {
-                // console.log('series: ', resp);
-                resp = resp.data.results;
-
-                if (respLen == 0) {
-                    $('#seriesListHeader').html(`<span>No 2018 Series Found</span>`).animate({ opacity: 0.85 }, 1000);
-                }
-                else {
-                    $('#seriesListHeader').html(`<span>Series List 2018</span>`);
-                    output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider">`;
-                    for (var i = 0; i < respLen; i++) {
-                        output += `<tr><td><div class="row"><div class="col s12"><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank">
-                        <i class="fas fa-external-link-square-alt"></i> ${resp[i].title}</a></div></div><div class="row trim-bottom-margin">
-                        <span class="col s12">Series Characters:</span>`;
-                        // Create divs to hold character images
-                        for (var j = 0; j < resp[i].characters.available; j++) {
-                            var splitSeriesURI = resp[i].characters.collectionURI.split('/'),
-                                seriesCharID = splitSeriesURI[6];
-                            output += `<div id="char-${seriesCharID}-${resp[i].id}" class="col s3 l2 seriesCharacterImage"></div>`;
-                        }
-                        getAdditionalData('seriesCharacters', resp[i].characters.collectionURI);
-                        output += `</div></td>`;
-                        // Convert to https image links
-                        imgSplitPath = resp[i].thumbnail.path.split('//');
-                        imgSSLfront = 'https://' + imgSplitPath[1];
-                        imgExtension = resp[i].thumbnail.extension;
-                        if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
-                            output += `<td><img class="imageMissing hide-on-small-only center" src="./assets/images/notfound/na-140x140.jpg"></a></td></tr>`;
-                        }
-                        else {
-                            output += `<td><a class="imageSeries-link center" href="${imgSSLfront}/detail.${imgExtension}" data-lightbox="SeriesImages" 
-                            data-title="${resp[i].title}"><img class="imageSeries hide-on-small-only" src="${imgSSLfront}/standard_large.${imgExtension}" 
-                            alt="${resp[i].title}"></a></td></tr>`;
-                        }
-                    }
-                    $('#seriesList').html(`${output}<tr><td><a class="red-txt-colour Fjalla" href="http://marvel.com">
-                    © 2018 MARVEL</a></td><td>&nbsp;</td></tr></table></div>`).removeClass('hide');
-
-                }
-            }
             if (type == 'events') {
                 resp = resp.data.results;
 
@@ -259,10 +330,6 @@ function getAdditionalData(type, resourceURI) {
         urlSecure = `https://${urlSplit[1]}`,
         splitForID = urlSplit[1].split('/'),
         seriesID, eventsID, url;
-    if (type == 'seriesCharacters') {
-        seriesID = splitForID[4];
-        url = `${urlSecure}${APIKEY}&orderBy=name&limit=100`;
-    }
     if (type == 'eventCharacters') {
         eventsID = splitForID[4];
         url = `${urlSecure}${APIKEY}&orderBy=name&limit=100`;
@@ -275,28 +342,6 @@ function getAdditionalData(type, resourceURI) {
             resp = resp.data.results;
             var respLen = resp.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
-            if (type == 'seriesCharacters') {
-                if (respLen != 0) {
-                    for (var i = 0; i < respLen; i++) {
-                        output = '';
-                        imgSplitPath = resp[i].thumbnail.path.split('//');
-                        imgSSLfront = 'https://' + imgSplitPath[1];
-                        imgExtension = resp[i].thumbnail.extension;
-                        if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
-                            output += `<a class="seriesCharacter-link center" href="./assets/images/notfound/na-500x500.jpg" 
-                            data-lightbox="SeriesCharacters-${seriesID}" data-title="${resp[i].name}">
-                            <img class="seriesCharacter size55" src="./assets/images/notfound/na-140x140.jpg" alt="${resp[i].name}"></a>`;
-                            $(`#char-${resp[i].id}-${seriesID}`).html(`${output}`);
-                        }
-                        else {
-                            output += `<a class="seriesCharacter-link center" href="${imgSSLfront}/detail.${imgExtension}" 
-                            data-lightbox="SeriesCharacters-${seriesID}" data-title="${resp[i].name}">
-                            <img class="seriesCharacter size55" src="${imgSSLfront}/standard_large.${imgExtension}" alt="${resp[i].name}"></a>`;
-                            $(`#char-${resp[i].id}-${seriesID}`).html(`${output}`);
-                        }
-                    }
-                }
-            }
             if (type == 'eventCharacters') {
                 if (respLen != 0) {
                     for (var i = 0; i < respLen; i++) {
