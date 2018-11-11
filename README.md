@@ -6,23 +6,22 @@
 
 This website was made to demonstrate the possibilities that data, retrieved using an API, can bring in enhancing content.
 Being a life-long Marvel fan, I decided to do this using Marvel's API, and allow people to search characters, and then present:
-- Comics the character appeared in in 2018
-- Series the character appeared in in 2018
+- Comics the character appeared in
+- Series the character appeared in
 - Events they appeared in
 - If available, a character description
 - A link to the character's bio-page at marvel.comics
-- See images for other characters that were in series and events alongside them
 
 ### What does it do?
 
 Searching and submitting a character's name will connect to the Marvel API to get the basic information for the character.
 Once returned, additional information is automatically gathered using follow-up calls:
-- Comics covers for the year 2018 for the character
-- Series for the year 2018, linking back to their marvel.com counterpart
+- Comics covers for the character, sorted from new to old, in a first page of a total X
+- Series, linking back to their marvel.com counterpart, with an image and if available, description
 - An overview of all events the character took part in, providing a description and link back to marvel.com
 
-Once this additional information is gathered and processed, for each series and event found, the other characters that were part of those are sought, 
-and images for them are shown along the series and events they belong to.
+Once this additional information is gathered and processed, each section will allow paging, which will get the next set of data in that section.
+Different sections retrieve different amounts of data, in order to limit the time taken.
 
 ### How does it work
 
@@ -31,15 +30,15 @@ all possible characters and storing those in a json format in-script. Due to its
 file in order to maintain a readable main file.
 
 Whenever an incorrect (unfound) search is submitted, a message will pop up, and the search can be done again. The auto-complete is sufficiently clear however, the fall-back is a proper 'it could happen' option.
-Once a name is submitted, using the Marvel API, ajax is used to get the information needed.
+Once a name is submitted, an ajax call to Marvel is used to get the information needed.
 
-Given the asynchronous nature of ajax calls, a total of three functions cover the entire processing of requests.
+Given the asynchronous nature of ajax calls, I have opted to create separate re-usable functions performing the calls.
 The first one handles gathering the basic character information used to present an image, name, description, link to a bio page and totals for comics, series and events.
-The second function is then fed the character's id, and is triggered for the retrieval of comics, series and events. These are three separate calls, passing the parameter which to go and get. Based on the parameter given, results are then processed accordingly, populating the three different topics onto the page.
-During execution of processing the results for the series and events, a third and final function is triggered, being fed the parameter for series or events, as well as the id of the series or event being processed. Results for each execution are then processed to populate the page with further information.
+The functions after are triggered initially from this function. These are three separate functions, each fed with a collectionURI, as well as an offset value. 
+The functions can be re-triggered from the pagination, updating the section with next or previous data.
 
-An overlay is placed onto the page upon execution of the initial search, and is lifted upon completion of either the comics or series retrieval. 
-Retrieving all the events takes longer to execute and process, and delaying the user any longer than needed should be prevented.
+An overlay is placed onto the page upon execution of a search, and is lifted upon completion. 
+The overlay may be lifted before all sections are filled, this is done to ensure users don't wait longer than needed.
 While the overlay is lifted however, a progress indicator will show which data is still being retrieved/processed. Once done, the button associated will be cleared and usable.
 
 The site relies heavily on the [MARVEL API](https://developer.marvel.com), any and all character content retrieved is © 2018 MARVEL
@@ -54,16 +53,14 @@ The site can be viewed [HERE](https://arjanvdmeij.github.io/msp-2-marvel-lookup/
 - Clear opening message with some explanation and current limitations
 - Fully functional auto-complete providing small character icons when available
 - (Temporary) overlay indicating processing of data
-- Galleries for images retrieved if related in groups (comics, series, events, characters for series or events)
+- Galleries for images retrieved if related in groups (comics and series)
 - Links to the matching pages for results at marvel.com
 
 ### Features Left to Implement
-- Modifying code to get comics for the past year based on submit date (essentially: today minus one year)
-  - Alternatively, re-design the form and ask the user for a year (t.b.d.)
+- Optionally allow selection of a specific time frame to get information for
 - Extended information when clicking on (e.g.) events, using further API calls with:
-  - character information (beyond an image gallery)
+  - character information
   - Comics information (release date, price, link to buy/read)
-  - Added information for events beyond a link-back to the Marvel site
 
 ## Tech Used
 
@@ -79,7 +76,8 @@ The site can be viewed [HERE](https://arjanvdmeij.github.io/msp-2-marvel-lookup/
 - [Lightbox](https://lokeshdhakar.com/projects/lightbox2/)
 - [Stack Overflow](https://stackoverflow.com/)
 
-## Wireframe mockups
+## Wireframe and User Stories
+- In the root of the repository is a document with stories and mockup drawings (though crude, they turned out more or less as envisioned)
 
 ## Testing
 - Testing was entirely done by continuous testing of every step created
