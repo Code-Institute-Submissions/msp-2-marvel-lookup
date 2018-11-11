@@ -22,8 +22,10 @@
                         <div class="brand-logo">
                             <img src="./assets/images/index/logo-marvel.png" alt="Logo" height="64">
                         </div>
-                        <ul id="nav-nubile" class="right">
-                            <li><a class="red-bg-colour" href="#top"><i class="material-icons">arrow_upward</i><i class="material-icons">home</i></a></li>
+                        <ul class="right">
+                            <li><a class="red-bg-colour" href="#top">
+                                <i class="material-icons">arrow_upward</i><i class="material-icons">home</i></a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -52,8 +54,6 @@
                                 <div class="divider red-bg-colour"></div>
                                 <p class="red-txt-colour"><b>This site will work better on mobile devices with a screen measuring 4.8 inches or higher.<br>
                                 For viewing the site on a desktop, the width has been limited to 1280 pixels wide, to make sure everything still looks as intended.</b></p>
-
-                                There are some limits to the results returned. See the notes below for more information.
                                 <div class="divider red-bg-colour"></div>
                             </div>
                         </li>
@@ -61,11 +61,14 @@
                             <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-question-circle"></i><span>About</span></div>
                             <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
                                 <div class="divider red-bg-colour"></div>
-                                This site lets you search for (your favourite) Marvel characters, and gets information for them from <a class="red-txt-colour" href="http://marvel.com" target="_blank"><b>Marvel</b></a>'s database.<br> You will be able
-                                to see which comics the characters were in, which series and which events they were a part of.<br> You will also see other characters in the results, that were a part of those series or events.
+                                This site lets you search for (your favourite) Marvel characters, and gets information for them from
+                                <a class="red-txt-colour" href="http://marvel.com" target="_blank"><b>Marvel</b></a>'s database.<br> You will be able to see which comics the characters were in, which series and which events they were a part of.
                                 <div class="divider red-bg-colour"></div>
-                                This entire site started as part of a project, where the goal was to make use of an API and retrieve and present data from a source. Being me, and grown up on Marvel Comics, the choice for an API to explore was quickly decided.<br>                                As it turns out, through the API, access is gained to information related to well over 1400 characters, and all the comics, series and events related to them. There are plenty of heroes and villains to pick from, so have
-                                a look, see what (and who) you can find.<br> Auto-completion will help you find whomever you're looking for.
+                                This site was built as a project, where the goal was to create a single page application, relying heavily on an API.<br> 
+                                Being me, having grown up on Marvel Comics, the choice for an API to use was quickly decided.<br>
+                                As it turns out, through the API, access is gained to information related to well over 1400 characters, and all the comics, series and events related to them.<br>
+                                There are plenty of heroes and villains to pick from, so have a look, see what (and who) you can find.<br> 
+                                Auto-completion will help you find whomever you're looking for.
                                 <div class="divider red-bg-colour"></div>
                             </div>
                         </li>
@@ -73,17 +76,22 @@
                             <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-exclamation-circle"></i><span>Notes</span></div>
                             <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
                                 <div class="divider red-bg-colour"></div>
-                                Searches can take some time (looking at you Spider-Man!), as all data is retrieved from the Marvel database.<br> I have made sure the overall wait is limited however. But do keep in mind, some searches are more extensive.
-                                There are also times when the servers at Marvel have an internal faux-pas, which will be shown to you as a disabled result button.<br> Should that happen, please re-do the search, usually it's a one-off glitch.
+                                Searches can take some time (looking at you Spider-Man!), as all data is retrieved from the Marvel database.<br> 
+                                I have made sure the overall wait is limited however. But do keep in mind, some searches are more extensive.
+                                There are also times when the servers at Marvel have an internal faux-pas, which will be shown to you as a disabled result button.<br>
+                                Should that happen, please re-do the search, usually it's a one-off glitch.
                                 <div class="divider red-bg-colour"></div>
-                                For the moment, I've limited the number of comics and series returned to those for the year 2018.<br> Becasue of this, a number of characters will not return any information. Usually, there well be events they were a part
-                                of however.<br> In all cases however, a link is provided to the character's entry on the Marvel pages, should you want to explore them further.<br> An option to be created still, is to select the year for which you'd like
-                                to have results shown.
+                                A good number have a description with them, but not all of them. In all cases, a link is provided to the character's entry on the 
+                                Marvel pages, should you want to explore them further.<br> 
+                                An option to be created still, is to select the year for which you'd like to have results shown.<br>
+                                Right now, all results come available, but in some cases that means to get to the oldest comics for instance, 
+                                very high page numbers need to be selected.
                                 <div class="divider red-bg-colour"></div>
-                                In the case a search returned empty, or an error occurred on Marvel's side, it will be clear that no content was returned.<br> Any content returned will be behind a red button, disabled buttons will be opaque and have a
-                                notification text on them.
+                                In the case a search returned empty, or an error occurred on Marvel's side, it will be clear that no content was returned.<br>
+                                Any content returned will be behind a red button, disabled buttons will be opaque and have a notification text on them.
                                 <div class="divider red-bg-colour"></div>
-                                Zoom in! Most of the images on the site can be tapped or clicked for a zoomed-in view.<br> Whenever an image is part of a larger group (such as characters in an event, or the comics for 2018), you'll have a slideshow.<br>                                In comics and series, images that are missing are omitted from the slideshow. They are available in event characters, for the purpose of showing their names.
+                                Zoom in! Most of the images on the site can be tapped or clicked for a zoomed-in view.<br> 
+                                Whenever an image is part of a group (such as the comics for a results page), you'll have a slideshow.
                                 <div class="divider red-bg-colour"></div>
                             </div>
                         </li>
@@ -91,7 +99,8 @@
                             <div class="collapsible-header red-bg-colour Fjalla"><i class="fas fa-grin"></i><span>Credits</span></div>
                             <div class="collapsible-body silver-light-bg-colour add-transparency Lato">
                                 <div class="divider red-bg-colour"></div>
-                                Many thanks to the people bringing the <a class="red-txt-colour" href="https://developer.marvel.com" target="_blank"><b>Marvel API</b></a> to the finger tips of all those like me!<br> Keep up your great work, so that like
+                                Many thanks to the people bringing the <a class="red-txt-colour" href="https://developer.marvel.com" target="_blank"><b>Marvel API</b></a> 
+                                to the finger tips of all those like me!<br> Keep up your great work, so that like
                                 me, many others can also build things to show the world the Marvel Universe!<br> You guys are awesome!
                                 <div class="divider red-bg-colour"></div>
                             </div>
@@ -114,15 +123,19 @@
                             <div id="seriesList" class="hide collapsible-body silver-dark-bg-colour"></div>
                         </li>
                         <li>
-                            <div id="eventsListHeader" onclick="toggleVisibility('#eventsList-fail-margin')" class="hide collapsible-header red-bg-colour">Events</div>
+                            <div id="eventsListHeader" class="hide collapsible-header red-bg-colour">Events</div>
                             <div id="eventsList" class="hide collapsible-body silver-dark-bg-colour extra-bottom-margin"></div>
                         </li>
                     </ul>
                 </div>
-                <div id="eventsList-fail-margin" class="extra-bottom-margin"></div>
+                <div class="extra-bottom-margin">
+                    <!-- Purely spacing -->
+                </div>
             </main>
             <footer class="red-bg-colour center">
-                <a class="Fjalla red-bg-colour" href="http://marvel.com" target="_blank"><div id="attributionText">&nbsp;</div></a>
+                <a class="Fjalla red-bg-colour" href="http://marvel.com" target="_blank">
+                    <div id="attributionText">&nbsp;</div>
+                </a>
             </footer>
         </div>
     </div>
@@ -133,7 +146,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/lightbox.min.js"></script>
     <script src="./assets/js/main.js"></script>
-    
+
 </body>
 
 </html>

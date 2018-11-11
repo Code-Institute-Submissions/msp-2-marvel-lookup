@@ -7,10 +7,6 @@ $(document).ready(function() {
     $('.collapsible').collapsible();
 });
 
-function toggleVisibility(id) {
-    $(id).slideToggle(500);
-}
-
 function screenBlock(type) {
     // Block the screen while initial searches take place
     if (type == 'on') {
@@ -72,7 +68,7 @@ function getCharacter() {
                 <img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></span>`).animate({ opacity: 1 }, 100).removeClass('hide');
                 getComics(character.data.results[0].comics.collectionURI, 0);
                 getSeries(character.data.results[0].series.collectionURI, 0);
-                getComicsSeriesEvents('events', character.data.results[0].events.collectionURI, 0);
+                getEvents(character.data.results[0].events.collectionURI, 0);
             }
         });
     $('#charForm')[0].reset();
@@ -148,7 +144,7 @@ function getComics(rawURL, offset) {
                                 alt="${comics.data.results[i].title}"></div></a></div>`;
                 }
                 output += `</td></tr><tr><td>${comicsPagination()}</td></tr><tr><td><a class="red-txt-colour Lato" 
-                            href="http://marvel.com">© 2018 MARVEL</a></td></tr></table></div>`;
+                            href="http://marvel.com">${comics.copyright}</a></td></tr></table></div>`;
                 $('#comicsList').html(`${output}`).removeClass('hide');
                 if (prevOffset < 0 && comics.data.total > nextOffset) {
                     $('#comics-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
@@ -170,7 +166,6 @@ function getSeries(rawURL, offset) {
     screenBlock('on');
     var splitURL = rawURL.split('//');
     var url = `https://${splitURL[1]}${APIKEY}&offset=${offset}&limit=10`;
-    console.log('Offset = : ', offset)
     var nextOffset = parseInt(offset) + 10;
     var prevOffset = parseInt(offset) - 10;
     $.ajax(url, {
@@ -183,7 +178,6 @@ function getSeries(rawURL, offset) {
             }
         })
         .done(function(series) {
-            console.log('series: ', series)
             screenBlock('off');
             var respLen = series.data.results.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
@@ -225,18 +219,19 @@ function getSeries(rawURL, offset) {
                 };
                 $('#seriesListHeader').html(`<span>Series List</span>`);
 
-                output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider"><tr class="row"><td class="col s12">${seriesPagination()}</td></tr>`;
+                output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider"><tr><td class="td-padding col s12">${seriesPagination()}</td></tr>`;
                 for (var i = 0; i < respLen; i++) {
                     var seriesDescription = function() {
                         var result;
                         if (series.data.results[i].description == null) {
                             result = `No description available...`;
-                        } else {
+                        }
+                        else {
                             result = series.data.results[i].description;
                         }
                         return result;
                     };
-                    output += `<tr class="row"><td class="col s12"><div class="col s12 m9">><a class="red-txt-colour Lato" href="${series.data.results[i].urls[0].url}" target="_blank">
+                    output += `<tr><td class="td-padding col s12"><div class="col s12 m9"><a class="red-txt-colour Lato" href="${series.data.results[i].urls[0].url}" target="_blank">
                         <i class="fas fa-external-link-square-alt"></i> ${series.data.results[i].title}</a><p><span class="col s12">${seriesDescription()}</span><p></div>`;
                     // Convert to https image links
                     imgSplitPath = series.data.results[i].thumbnail.path.split('//');
@@ -251,7 +246,7 @@ function getSeries(rawURL, offset) {
                             alt="${series.data.results[i].title}"></a></div></td></tr>`;
                     }
                 }
-                $('#seriesList').html(`${output}<tr class="row"><td class="col s12">${seriesPagination()}</td></tr><tr class="row"><td class="col s12"><a class="red-txt-colour Fjalla" href="http://marvel.com">
+                $('#seriesList').html(`${output}<tr><td class="td-padding col s12">${seriesPagination()}</td></tr><tr><td class="td-padding col s12"><a class="red-txt-colour Fjalla" href="http://marvel.com">
                     ${series.copyright}</a></td></tr></table></div>`).removeClass('hide');
 
                 if (prevOffset < 0 && series.data.total > nextOffset) {
@@ -269,103 +264,82 @@ function getSeries(rawURL, offset) {
         });
 }
 
-
-function getComicsSeriesEvents(type, rawURL, offset) {
-    $("#welcomeMessage").addClass('hide');
+function getEvents(rawURL, offset) {
+    screenBlock('on');
     var splitURL = rawURL.split('//');
-    var url = `https://${splitURL[1]}${APIKEY}&offset=${offset}`;
-    var nextOffset = parseInt(offset) + 20;
-    var prevOffset = parseInt(offset) - 20;
+    var url = `https://${splitURL[1]}${APIKEY}&offset=${offset}&limit=5`;
+    var nextOffset = parseInt(offset) + 5;
+    var prevOffset = parseInt(offset) - 5;
     $.ajax(url, {
             type: 'GET',
             dataType: 'json',
-            error: function(xhr) {
-                if (type == 'events') {
-                    $('#eventsListHeader').html(`<span>Server Error. Please Search again.</span>`).animate({ opacity: 0.85 }, 1000);
-                    $('#eventsList').addClass('hide');
-                    $('#eventsList-fail-margin').addClass('extra-bottom-margin');
-                }
+            error: function() {
+                $('#eventsListHeader').html(`<span>Server Error. Please Search again.</span>`).animate({ opacity: 0.85 }, 1000);
+                $('#eventsList').addClass('hide');
                 return;
             }
         })
-        .done(function(resp) {
+        .done(function(events) {
             screenBlock('off');
-            var respLen = resp.data.results.length,
+            var respLen = events.data.results.length,
                 imgSplitPath, imgSSLfront, imgExtension, output;
             output = '';
-            if (type == 'events') {
-                resp = resp.data.results;
-
-                if (respLen == 0) {
-                    $('#eventsListHeader').html(`<span>No Events Found</span>`).animate({ opacity: 0.85 }, 1000);
-                    $('#eventsList-bottom-margin-substitute').addClass('extra-bottom-margin');
-                }
-                else {
-                    $('#eventsListHeader').html(`<span>Events List</span>`);
-                    output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider">`;
-                    for (var i = 0; i < respLen; i++) {
-                        output += `<tr><td><div class="col s12"><h6><a class="red-txt-colour Lato" href="${resp[i].urls[0].url}" target="_blank"><i class="fas fa-external-link-square-alt">
-                            </i> ${resp[i].title}</a></h6><p class="grey-txt-colour">${resp[i].description}</p></div><div id="event-button-${resp[i].id}" class="col s12 m6 offset-m3 center">
-                            <a class="btn red-bg-colour loader-padding"><img src="./assets/images/pre-loaders/result-bar.gif" alt="Loading..."></a>
-                            </div></td></tr><tr id="eventCharacters${resp[i].id}" class="toggle-target"><td>`;
-                        // Create divs to hold character images    
-                        for (var j = 0; j < resp[i].characters.available; j++) {
-                            var splitEventURI = resp[i].characters.collectionURI.split('/'),
-                                eventCharID = splitEventURI[6];
-                            output += `<div id="char-${eventCharID}-${j}" class="col s4 m2 eventCharacterImage"></div>`;
-                        }
-                        getAdditionalData('eventCharacters', resp[i].characters.collectionURI);
-                    }
-                    $('#eventsList').html(`${output}<tr><td><a class="red-txt-colour Fjalla" href="http://marvel.com">
-                    © 2018 MARVEL</a></td></tr></table></div>`).removeClass('hide');
-                }
+            if (respLen == 0) {
+                $('#eventsListHeader').html(`<span>No Events Found</span>`).animate({ opacity: 0.85 }, 1000);
             }
-        });
-    return false;
-}
-
-function getAdditionalData(type, resourceURI) {
-    // Turn URL into https and grab unique identifiers
-    var urlSplit = resourceURI.split('//'),
-        urlSecure = `https://${urlSplit[1]}`,
-        splitForID = urlSplit[1].split('/'),
-        seriesID, eventsID, url;
-    if (type == 'eventCharacters') {
-        eventsID = splitForID[4];
-        url = `${urlSecure}${APIKEY}&orderBy=name&limit=100`;
-    }
-    $.ajax(url, {
-            type: 'GET',
-            dataType: 'json'
-        })
-        .done(function(resp) {
-            resp = resp.data.results;
-            var respLen = resp.length,
-                imgSplitPath, imgSSLfront, imgExtension, output;
-            if (type == 'eventCharacters') {
-                if (respLen != 0) {
-                    for (var i = 0; i < respLen; i++) {
-                        output = '';
-                        imgSplitPath = resp[i].thumbnail.path.split('//');
-                        imgSSLfront = 'https://' + imgSplitPath[1];
-                        imgExtension = resp[i].thumbnail.extension;
-                        if (imgSSLfront == 'https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available') {
-                            output += `<a class="eventCharacter-link center" href="./assets/images/notfound/na-500x500.jpg" 
-                            data-lightbox="EventCharacters-${eventsID}" data-title="${resp[i].name}">
-                            <img class="eventCharacter size70" src="./assets/images/notfound/na-140x140.jpg" alt="${resp[i].name}"></a>`;
-                            $(`#char-${eventsID}-${i}`).html(`${output}`);
-                        }
-                        else {
-                            output += `<a class="eventCharacter-link center" href="${imgSSLfront}/detail.${imgExtension}" 
-                            data-lightbox="EventCharacters-${eventsID}" data-title="${resp[i].name}">
-                            <img class="eventCharacter size70" src="${imgSSLfront}/standard_large.${imgExtension}" alt="${resp[i].name}"></a>`;
-                            $(`#char-${eventsID}-${i}`).html(`${output}`);
-                        }
-                        $(`#event-button-${eventsID}`).html(`<a class="btn red-bg-colour Fjalla center" 
-                        onclick="toggleVisibility('#eventCharacters${eventsID}','#arrows-event-button-${eventsID}')">
-                        Characters for this event&nbsp;&nbsp;&nbsp;<i class="far fa-plus-square"></i></a>`);
+            else {
+                var activePage = (offset + 5) / 5;
+                var eventsPagination = function() {
+                    var firstOffset = 0,
+                        paginationRoundUp = 0,
+                        page,
+                        pagesTotal;
+                    var pageLinks = ``;
+                    pageLinks += `<center><ul class="pagination"><li id="events-chevron-left" class="waves-effect"><a onclick="getComics('${rawURL}',${prevOffset})"><i class="material-icons">chevron_left</i></a></li>
+                            <li id="page-1" class="events-page-1 waves-effect"><a onclick="getEvents('${rawURL}',${firstOffset})">1</a></li>`;
+                    if (events.data.total % 5 != 0) {
+                        paginationRoundUp = 5 - (events.data.total % 5);
                     }
+                    pagesTotal = (events.data.total + paginationRoundUp) / 5;
+                    if (pagesTotal > 1) {
+                        if (activePage > 3) {
+                            pageLinks += ` ... `;
+                        }
+                        for (page = activePage - 1; page < activePage + 2; page++) {
+                            if (page > 1 && page < pagesTotal) {
+                                pageLinks += `<li id="page-${page}" class="events-page-${page} waves-effect"><a onclick="getEvents('${rawURL}',${(page * 5) - 5})">${page}</a></li>`;
+                            }
+                        }
+                        if (activePage < pagesTotal - 2) {
+                            pageLinks += ` ... `;
+                        }
+                        pageLinks += `<li id="page-${pagesTotal}" class="events-page-${pagesTotal} waves-effect"><a onclick="getEvents('${rawURL}',${(pagesTotal * 5) - 5})">${pagesTotal}</a></li>`;
+                    }
+                    pageLinks += `<li id="events-chevron-right" class="waves-effect"><a onclick="getEvents('${rawURL}',${nextOffset})"><i class="material-icons">chevron_right</i></a></li>
+                          </ul></center>`;
+                    return pageLinks;
+                };
+                $('#eventsListHeader').html(`<span>Events List</span>`);
+                output += `<div class="row format-list silver-light-bg-colour"><table class="row-divider"><tr><td>${eventsPagination()}</td></tr>`;
+                for (var i = 0; i < respLen; i++) {
+                    output += `<tr><td><div class="col s12"><h6><a class="red-txt-colour Lato" href="${events.data.results[i].urls[0].url}" target="_blank">
+                            <i class="fas fa-external-link-square-alt"></i> ${events.data.results[i].title}</a></h6><p class="grey-txt-colour">
+                            ${events.data.results[i].description}</p></div></td></tr>`;
                 }
+                $('#eventsList').html(`${output}<tr><td>${eventsPagination()}</td></tr><tr><td><a class="red-txt-colour Fjalla" 
+                                        href="http://marvel.com">${events.copyright}</a></td></tr></table></div>`).removeClass('hide');
+
+                if (prevOffset < 0 && events.data.total > nextOffset) {
+                    $('#events-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
+                }
+                if (prevOffset >= 0 && events.data.total - nextOffset <= 0) {
+                    $('#events-chevron-right').html(`<a><i class="material-icons">chevron_right</i></a>`);
+                }
+                if (prevOffset < 0 && events.data.total < nextOffset) {
+                    $('#events-chevron-left').html(`<a><i class="material-icons">chevron_left</i></a>`);
+                    $('#events-chevron-right').html(`<a><i class="material-icons">chevron_right</i></a>`);
+                }
+                $(`.events-page-${activePage}`).addClass('active red-bg-colour');
             }
         });
 }

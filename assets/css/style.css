@@ -240,7 +240,6 @@ th {
     border-top: 2px solid #EC1D24;
 }
 
-
 .characterName-card .card-title {
     padding: 0;
     text-shadow: 1px 2px 2px rgba(0,0,0,0.35);
@@ -280,9 +279,53 @@ div.card-content.force {
 .format-list {
     border-radius: 5px;
     border: 1px solid #EC1D24;
-    padding-top: 10px;
     margin-bottom: 0;
 }
+
+.imageCovers,
+.imageSeries,
+.imageEvents,
+.imageMissing,
+.seriesCharacter,
+.eventCharacter {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    margin: 10px 0 10px;
+}
+
+.imageCovers {
+    display: block;
+    width: 100%;
+    height: 150px;
+    max-width: 100px;
+    margin: 0 0 10px;
+}
+
+.seriesCharacterImage,
+.eventCharacterImage {
+    margin-top: 10px;
+}
+
+.td-padding {
+    padding: 15px 5px !important;
+}
+
+.extra-bottom-margin {
+    margin-bottom: 60px;
+}
+
+.loader-padding {
+    padding: 4px 16px 0;
+}
+
+.row-divider tr {
+    border-bottom: 1px solid #EC1D24;
+}
+
+.row-divider tr:last-child {
+    border-bottom: 0;
+}
+
+/* Materialize Overrides */ 
 
 .card {
     background-color: #FEFEFE;
@@ -319,41 +362,6 @@ div.card-content.force {
     margin-right: -2rem;
 }
 
-.imageCovers,
-.imageSeries,
-.imageEvents,
-.imageMissing,
-.seriesCharacter,
-.eventCharacter {
-    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-    margin: 10px 0 10px;
-}
-
-.imageCovers {
-    display: block;
-    width: 100%;
-    height: 150px;
-    max-width: 100px;
-    margin: 0 0 10px;
-}
-
-.pagination li a {
-    color: #444;
-    display: inline-block;
-    font-size: 1rem;
-    padding: 0 4px;
-    line-height: 2rem;
-}
-
-.seriesCharacterImage,
-.eventCharacterImage {
-    margin-top: 10px;
-}
-
-.toggle-target {
-    display: none;
-}
-
 .collapsible-body {
     padding: 0.5rem;
     text-align: center;
@@ -371,35 +379,27 @@ div.card-content.force {
     vertical-align: top;
 }
 
-.extra-bottom-margin {
-    margin-bottom: 60px;
-}
-
-.loader-padding {
-    padding: 4px 16px 0;
-}
-
-.size55 {
-    height: 55px;
-    width: 55px;
-}
-
-.size70 {
-    height: 70px;
-    width: 70px;
-}
-
-.row-divider tr {
-    border-bottom: 1px solid #EC1D24;
-}
-
-.row-divider tr:last-child {
-    border-bottom: 0;
+.pagination li a {
+    color: #444;
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0 4px;
+    line-height: 2rem;
 }
 
 .divider {
     background-color: #e0e0e0;
     margin: 3px 0;
+}
+
+/* Materialize Media query navbar override */
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo {
+        left: 0;
+        -webkit-transform: none;
+        transform: none;
+    }
 }
 
 /* Lightbox */
@@ -440,14 +440,4 @@ div.card-content.force {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-}
-
-/* Materialize Media query navbar override */
-
-@media only screen and (max-width: 992px) {
-    nav .brand-logo {
-        left: 0;
-        -webkit-transform: none;
-        transform: none;
-    }
 }
