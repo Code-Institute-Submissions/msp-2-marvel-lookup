@@ -138,10 +138,10 @@ function getComics(rawURL, offset) {
                     imgSplitPath = comics.data.results[i].thumbnail.path.split('//');
                     imgSSLfront = 'https://' + imgSplitPath[1];
                     imgExtension = comics.data.results[i].thumbnail.extension;
-                    output += `<div class="col s6 m3 l2 center"><a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" 
+                    output += `<div class="col s6 m3 l2"><center><a class="imageCovers-link" href="${imgSSLfront}/detail.${imgExtension}" 
                                 data-lightbox="ComicImages" data-title="${comics.data.results[i].title}"><div class="imageCoversSize">
                                 <img class="imageCovers" src="${imgSSLfront}/portrait_medium.${imgExtension}" 
-                                alt="${comics.data.results[i].title}"></div></a></div>`;
+                                alt="${comics.data.results[i].title}"></div></a></center></div>`;
                 }
                 output += `</td></tr><tr><td>${comicsPagination()}</td></tr><tr><td><a class="red-txt-colour Lato" 
                             href="http://marvel.com">${comics.copyright}</a></td></tr></table></div>`;

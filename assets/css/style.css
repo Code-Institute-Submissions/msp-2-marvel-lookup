@@ -90,7 +90,7 @@ footer {
     border-top: 2px solid #FEFEFE;
 }
 
-/* Materialize Overrides */ 
+/* Materialize Overrides */
 
 .card {
     background-color: #FEFEFE;
@@ -268,6 +268,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 }
 
 #characterImage img {
+    border-bottom-right-radius: 10px;
     border-bottom: 2px solid #EC1D24;
     border-right: 2px solid #EC1D24;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -308,7 +309,7 @@ th {
     background-color: #FEFEFE;
 }
 
-.characterName-card  table tr {
+.characterName-card table tr {
     border: none;
 }
 
@@ -318,7 +319,7 @@ th {
 
 .characterName-card .card-title {
     padding: 0;
-    text-shadow: 1px 2px 2px rgba(0,0,0,0.35);
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.35);
     margin-bottom: 0 !important;
     margin-top: 8px;
     font-size: calc(1.6rem + 0.5 * ((100vw - 15rem) / 15));
@@ -335,7 +336,7 @@ th {
 
 div.card-content.force {
     padding: 0;
-    
+
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -400,8 +401,6 @@ div.card-content.force {
 .row-divider tr:last-child {
     border-bottom: 0;
 }
-
-
 
 /* Lightbox */
 
